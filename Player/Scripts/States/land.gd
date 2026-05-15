@@ -23,8 +23,6 @@ func _enter() -> void:
 	# Slight horizontal skid — porcelain weight
 	_player.velocity.x *= 0.6
 
-	if not _player.sprite.animation_finished.is_connected(_on_animation_finished):
-		_player.sprite.animation_finished.connect(_on_animation_finished)
 
 func _on_animation_finished() -> void:
 	if _player.sprite.animation in ["land"]:

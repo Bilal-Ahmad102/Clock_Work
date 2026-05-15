@@ -10,7 +10,7 @@ size = Vector3(20, 20, 0)
 size = Vector3(30, 40, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8od7v"]
-size = Vector3(1000, 10, 1)
+size = Vector3(100000, 10, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qc4db"]
 

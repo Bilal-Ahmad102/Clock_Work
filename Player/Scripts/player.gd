@@ -3,8 +3,9 @@ extends CharacterBody2D
 @onready var collision: CollisionShape2D  = $CollisionShape2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+@onready var fx_player: AnimatedSprite2D = %FX_player
 
-
+var facing_left : bool = false
 
 func _physics_process(delta: float) -> void:
 	# Global systems that run regardless of state
@@ -37,9 +38,10 @@ func apply_gravity(delta: float) -> void:
 func apply_horizontal(delta: float, speed: float) -> void:
 	var dir := Input.get_axis("move_left", "move_right")
 	var control := 1.0 #if is_on_floor() else PlayerData.AIR_CONTROL
-
-	if dir != 0.0:
+	
+	if dir != 0.0 :
 		sprite.flip_h = dir < 0.0
+		facing_left = sprite.flip_h 
 		velocity.x = move_toward(
 			velocity.x,
 			dir * speed,
@@ -53,10 +55,47 @@ func apply_horizontal(delta: float, speed: float) -> void:
 		)
 
 # ── Animation helper ─────────────────────────────────────────
-func play_anim(anim: StringName) -> void:
-	if !sprite : sprite = get_node("AnimatedSprite2D")
+
+
+#region Animation Helper Functions
+func play_anim(anim: StringName, start_frame: int = 0) -> void:
+	if !sprite: sprite = get_node("AnimatedSprite2D")
+	if sprite.animation != anim:
+		sprite.frame = start_frame
+		sprite.play(anim)
+		
+
+func play_anim_then_loop(anim: StringName, transition_frame: int = 0, end_frame: int = 0) -> void:
+	if !sprite: sprite = get_node("AnimatedSprite2D")
 	if sprite.animation != anim:
 		sprite.play(anim)
+		if !sprite.frame_changed.is_connected(_on_transition_frame_changed):
+			sprite.frame_changed.connect(_on_transition_frame_changed.bind(anim, transition_frame, end_frame))
+
+func _on_transition_frame_changed(anim: StringName, transition_frame: int, end_frame: int) -> void:
+	if sprite.frame >= transition_frame:
+		sprite.frame_changed.disconnect(_on_transition_frame_changed)
+		play_anim_looped(anim, transition_frame, end_frame)
+
+func play_anim_looped(anim: StringName, start_frame: int, end_frame: int) -> void:
+	sprite.frame = start_frame
+	play_anim(anim, start_frame)
+	if !sprite.frame_changed.is_connected(_on_frame_changed):
+		sprite.frame_changed.connect(_on_frame_changed.bind(start_frame, end_frame))
+
+func _on_frame_changed(start_frame: int, end_frame: int) -> void:
+	if sprite.frame >= end_frame:
+		sprite.frame = start_frame
+
+func play_anim_rest(anim: StringName, _start_frame: int) -> void:
+	if sprite.frame_changed.is_connected(_on_frame_changed):
+		sprite.frame_changed.disconnect(_on_frame_changed)
+	sprite.frame = _start_frame
+	sprite.play(anim)
+	print(sprite.animation)
+
+#endregion Animation Helper Functions
+
 
 # ── Coyote / jump-buffer ticks ───────────────────────────────
 func _tick_coyote(delta: float) -> void:
@@ -74,3 +113,8 @@ func _tick_jump_buffer(delta: float) -> void:
 # ── Public helpers called by combat script ───────────────────
 func set_movement_locked(locked: bool) -> void:
 	PlayerData.movement_locked = locked
+
+func full_stop_movement(value :bool ):
+	if value:
+		velocity = Vector2.ZERO
+	
