@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var collision: CollisionShape2D  = $CollisionShape2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var state_machine: LimboHSM = $state_machine
+@onready var hitbox: Area2D = %hitbox
 
 @onready var fx_player: AnimatedSprite2D = %FX_player
 
@@ -42,6 +44,7 @@ func apply_horizontal(delta: float, speed: float) -> void:
 	if dir != 0.0 :
 		sprite.flip_h = dir < 0.0
 		facing_left = sprite.flip_h 
+		hitbox.change_face(facing_left)
 		velocity.x = move_toward(
 			velocity.x,
 			dir * speed,
@@ -63,36 +66,7 @@ func play_anim(anim: StringName, start_frame: int = 0) -> void:
 	if sprite.animation != anim:
 		sprite.frame = start_frame
 		sprite.play(anim)
-		
 
-func play_anim_then_loop(anim: StringName, transition_frame: int = 0, end_frame: int = 0) -> void:
-	if !sprite: sprite = get_node("AnimatedSprite2D")
-	if sprite.animation != anim:
-		sprite.play(anim)
-		if !sprite.frame_changed.is_connected(_on_transition_frame_changed):
-			sprite.frame_changed.connect(_on_transition_frame_changed.bind(anim, transition_frame, end_frame))
-
-func _on_transition_frame_changed(anim: StringName, transition_frame: int, end_frame: int) -> void:
-	if sprite.frame >= transition_frame:
-		sprite.frame_changed.disconnect(_on_transition_frame_changed)
-		play_anim_looped(anim, transition_frame, end_frame)
-
-func play_anim_looped(anim: StringName, start_frame: int, end_frame: int) -> void:
-	sprite.frame = start_frame
-	play_anim(anim, start_frame)
-	if !sprite.frame_changed.is_connected(_on_frame_changed):
-		sprite.frame_changed.connect(_on_frame_changed.bind(start_frame, end_frame))
-
-func _on_frame_changed(start_frame: int, end_frame: int) -> void:
-	if sprite.frame >= end_frame:
-		sprite.frame = start_frame
-
-func play_anim_rest(anim: StringName, _start_frame: int) -> void:
-	if sprite.frame_changed.is_connected(_on_frame_changed):
-		sprite.frame_changed.disconnect(_on_frame_changed)
-	sprite.frame = _start_frame
-	sprite.play(anim)
-	print(sprite.animation)
 
 #endregion Animation Helper Functions
 

@@ -26,13 +26,21 @@ func _on_animation_finished() -> void:
 
 func _update(delta: float) -> void:
 	_player.apply_horizontal(delta, PlayerData.RUN_SPEED)
+	call_transition_inputs()
 
-	# ── Transitions ──────────────────────────────────────────
-	#if not _player.is_on_floor():
-		#get_root().dispatch(&"fall")
-		#return
-
-
+func call_transition_inputs():
+	get_root().input_for_idle()
+	get_root().input_for_jump()
+	get_root().input_for_sprint_atk()
+	get_root().input_for_walk()
+	get_root().input_for_dash()
+	get_root().input_for_parry()
+	get_root().input_for_shield_block()
+	get_root().input_for_combo_light_atk()
+	get_root().input_for_heavy_atk()
+	
+	
+	
 func _jump_requested() -> bool:
 	return PlayerData.jump_buffer_timer > 0.0 \
 		or Input.is_action_just_pressed("jump")

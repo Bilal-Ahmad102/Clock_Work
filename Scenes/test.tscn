@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://ci3xy2jkuj5jo" path="res://Player/Scenes/Player.tscn" id="1_lc1oi"]
 [ext_resource type="Texture2D" uid="uid://c6cxfhwssvsg1" path="res://addons/kenney_prototype_textures/green/texture_08.png" id="2_8od7v"]
+[ext_resource type="PackedScene" uid="uid://ccxw7mmjc3mys" path="res://Enemy/dummy.tscn" id="3_qc4db"]
+[ext_resource type="Texture2D" uid="uid://2ldyim0xaube" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="4_ys1qc"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_qc4db"]
 size = Vector3(20, 20, 0)
@@ -10,7 +12,7 @@ size = Vector3(20, 20, 0)
 size = Vector3(30, 40, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8od7v"]
-size = Vector3(100000, 10, 1)
+size = Vector3(100000, 100, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qc4db"]
 
@@ -28,13 +30,18 @@ position = Vector2(143, -25)
 mesh = SubResource("BoxMesh_ys1qc")
 texture = ExtResource("2_8od7v")
 
+[node name="Dummy" parent="." unique_id=1214057030 instance=ExtResource("3_qc4db")]
+position = Vector2(207, -5)
+
 [node name="Player" parent="." unique_id=196885234 instance=ExtResource("1_lc1oi")]
 position = Vector2(0, -5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1136435925]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D" unique_id=314011830]
+position = Vector2(0, 45)
 mesh = SubResource("BoxMesh_8od7v")
+texture = ExtResource("4_ys1qc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=848402247]
 position = Vector2(0, -3.5)

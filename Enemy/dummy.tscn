@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://ccxw7mmjc3mys"]
+
+[ext_resource type="Script" uid="uid://c4ou8r3dhj0ai" path="res://Enemy/dummy.gd" id="1_e6qbn"]
+[ext_resource type="Texture2D" uid="uid://ipxgj2i0mawk" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Extras/TrainingDummy/Armored/Hited/Hited1.png" id="1_up7xp"]
+[ext_resource type="Texture2D" uid="uid://blhwfcrjg6qwg" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Extras/TrainingDummy/Armored/Hited/Hited2.png" id="2_e6qbn"]
+[ext_resource type="Texture2D" uid="uid://dt0moipbkx076" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Extras/TrainingDummy/Armored/Hited/Hited3.png" id="3_i7113"]
+[ext_resource type="Texture2D" uid="uid://74eanf76t80r" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Extras/TrainingDummy/Armored/Hited/Hited4.png" id="4_pte21"]
+[ext_resource type="Texture2D" uid="uid://b0hasj1kkdnau" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Extras/TrainingDummy/Armored/Hited/Hited5.png" id="5_1lkvd"]
+[ext_resource type="Texture2D" uid="uid://bacmjiskoh51j" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Extras/TrainingDummy/Armored/Idle/Idle.png" id="6_sj67e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fq53u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_up7xp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_e6qbn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i7113")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pte21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1lkvd")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_sj67e")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_up7xp"]
+height = 34.0
+
+[node name="Dummy" type="CharacterBody2D" unique_id=1214057030]
+script = ExtResource("1_e6qbn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1003557395]
+texture_filter = 1
+position = Vector2(0, -24)
+sprite_frames = SubResource("SpriteFrames_fq53u")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566341742]
+position = Vector2(0, -17)
+shape = SubResource("CapsuleShape2D_up7xp")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=771534676]
+offset_left = -25.0
+offset_top = -43.0
+offset_right = 25.0
+offset_bottom = -38.0
+value = 100.0
+show_percentage = false
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1817020505]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=178989987]
+position = Vector2(0, -17)
+shape = SubResource("CapsuleShape2D_up7xp")
