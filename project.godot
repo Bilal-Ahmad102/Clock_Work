@@ -23,6 +23,10 @@ PlayerData="*uid://falui2d7uov3"
 
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+Player=""
+
 [input]
 
 move_left={
@@ -89,6 +93,10 @@ magic={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":5,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_2="Enemies"
 
 [physics]
 

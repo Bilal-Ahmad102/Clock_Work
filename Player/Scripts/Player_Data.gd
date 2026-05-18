@@ -24,16 +24,21 @@ const INV_FRAMES         := 8
 # ── Magic Dash config ─────────────────────────────────────────────
 const MAGIC_DASH_SPEED         := 2500.0
 const MAGIC_DASH_DURATION      := 0.1
-const MAGIC_DASH_MANA_COST  := 00.0
+const MAGIC_DASH_MANA_COST  := 40.0
 const MAGIC_INV_FRAMES         := 8
 
 # ── Magic Dash config ─────────────────────────────────────────────
-const MAGIC_HEAVY_ATTACK_MANA_COST  := 00.0
+const MAGIC_HEAVY_ATTACK_MANA_COST  := 50.0
 
 # ── Stamina config ───────────────────────────────────────────
 const MAX_STAMINA         := 100.0
 const STAMINA_REGEN_RATE  := 12.0
 const STAMINA_REGEN_DELAY := 1.2
+
+# ── Health config ───────────────────────────────────────────
+const MAX_HEALTH         := 100.0
+const HEALTH_REGEN_RATE  := 12.0
+const HEALTH_REGEN_DELAY := 1.2
 
 # ── Mana config ──────────────────────────────────────────────
 const MAX_MANA         := 100.0
@@ -47,15 +52,20 @@ const LIGHT_ATTACK_DAMAGE_COMBO_1  := 8.0
 const LIGHT_ATTACK_DAMAGE_COMBO_2  := 10.0
 const LIGHT_ATTACK_DAMAGE_COMBO_3  := 15.0
 
+const SPRINT_ATTACK_DAMAGE  := 10.0
+
 const HEAVY_ATTACK_DAMAGE  := 32.0
-const COMBO_LAST_HIT_DAMAGE:= 14.0
+const MAGIC_HEAVY_ATTACK_DAMAGE  := 60.0
 
 
 # ── Runtime state ────────────────────────────────────────────
 var stamina            : float = MAX_STAMINA
-var stamina_regen_timer: float = 0.0
 var mana               : float = MAX_MANA
+var health             : float = MAX_HEALTH
+
+var stamina_regen_timer: float = 0.0
 var mana_regen_timer   : float = 0.0
+var health_regen_timer   : float = 0.0
 
 var is_invincible      : bool  = false
 var invincibility_timer: float = 0.0
@@ -64,11 +74,16 @@ var jump_buffer_timer  : float = 0.0
 var was_on_floor       : bool  = false
 var dash_direction     : float = 1.0
 var movement_locked    : bool  = false
+
+
 # ── Signals ──────────────────────────────────────────────────
 signal stamina_changed(current: float, maximum: float)
 signal mana_changed(current: float, maximum: float)
+signal health_changed(current: float, maximum: float)
+
 signal dash_started
 signal dash_ended
+
 signal magic_dash_atk_started
 signal magic_dash_atk_ended
 

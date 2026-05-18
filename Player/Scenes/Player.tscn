@@ -263,6 +263,7 @@
 [ext_resource type="Script" uid="uid://cvmfdd034dcx5" path="res://Player/Scripts/States/parry.gd" id="205_agdf1"]
 [ext_resource type="Script" uid="uid://bo004q5uegjj0" path="res://Player/Scripts/States/magic_dash_atk.gd" id="231_rvw3r"]
 [ext_resource type="Script" uid="uid://ctrolnl4w0ogt" path="res://Player/Scripts/States/magic_heavy_atk.gd" id="260_d1yo2"]
+[ext_resource type="PackedScene" uid="uid://2sik4qjwipnm" path="res://Player/Scenes/magic_dash_hitbox.tscn" id="260_sqvu2"]
 [ext_resource type="Script" uid="uid://bh6ypuefy7q31" path="res://Player/Scripts/ui.gd" id="264_58rsl"]
 [ext_resource type="Texture2D" uid="uid://glyhj5wku1u" path="res://Assets/icons/heavy_attack.png" id="265_7l0r7"]
 [ext_resource type="Texture2D" uid="uid://cji7f0g6wlhvg" path="res://addons/kenney_input_prompts/PlayStation Series/Default/playstation_button_color_triangle.png" id="266_7l0r7"]
@@ -1201,7 +1202,8 @@ corner_radius_bottom_left = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7l484"]
 size = Vector2(41, 40)
 
-[node name="Player" type="CharacterBody2D" unique_id=196885234]
+[node name="Player" type="CharacterBody2D" unique_id=196885234 groups=["Player"]]
+collision_mask = 3
 script = ExtResource("1_p75he")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1451001437]
@@ -1211,7 +1213,7 @@ shape = SubResource("CapsuleShape2D_0qu43")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=516940414]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_on2vx")
-animation = &"combo_atk"
+animation = &"magic_dash_atk"
 autoplay = "idle"
 offset = Vector2(-2, -21)
 
@@ -1258,6 +1260,7 @@ script = ExtResource("174_1mfu8")
 
 [node name="magic_dash_atk" type="LimboState" parent="state_machine" unique_id=763166396]
 script = ExtResource("231_rvw3r")
+DASH_HITBOX_SCENE = ExtResource("260_sqvu2")
 
 [node name="magic_heavy_atk" type="LimboState" parent="state_machine" unique_id=1934936976]
 script = ExtResource("260_d1yo2")
@@ -1385,8 +1388,43 @@ layout_mode = 2
 texture = ExtResource("268_7l484")
 expand_mode = 1
 
+[node name="Player_values" type="Control" parent="UI" unique_id=2144867464]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="UI/Player_values" unique_id=1226362007]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 34.0
+offset_right = 186.0
+offset_bottom = 69.0
+
+[node name="health_bar" type="ProgressBar" parent="UI/Player_values/HBoxContainer" unique_id=2124520271]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+value = 80.0
+show_percentage = false
+
+[node name="stamina_bar" type="ProgressBar" parent="UI/Player_values/HBoxContainer" unique_id=1592889627]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+value = 80.0
+show_percentage = false
+
+[node name="mana_bar" type="ProgressBar" parent="UI/Player_values/HBoxContainer" unique_id=1908373141]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+value = 80.0
+show_percentage = false
+
 [node name="hitbox" type="Area2D" parent="." unique_id=46598134]
 unique_name_in_owner = true
+collision_mask = 2
 script = ExtResource("272_nwhhx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=2100851002]

@@ -9,6 +9,8 @@ func _setup() -> void:
 	_player = agent
 
 func _enter() -> void:
+	_player.set_collision_mask_value(2, false)  # 2 = enemy layer 
+
 	# Determine dash direction from input, fall back to sprite facing
 	var input_dir := Input.get_axis("move_left", "move_right")
 	if input_dir != 0.0:
@@ -45,6 +47,8 @@ func _on_animation_finished() -> void:
 
 
 func _exit() -> void:
+	_player.set_collision_mask_value(2, true)  
+
 	get_root().previous_state = self
 
 func _update(delta: float) -> void:

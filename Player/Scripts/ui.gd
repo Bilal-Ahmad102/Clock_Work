@@ -8,6 +8,10 @@ extends CanvasLayer
 @onready var state_machine: LimboHSM = %state_machine
 @onready var dash: TextureRect = %dash
 
+@onready var health_bar: ProgressBar = %health_bar
+@onready var stamina_bar: ProgressBar = %stamina_bar
+@onready var mana_bar: ProgressBar = %mana_bar
+
 var state_to_icons: Dictionary
 var state_to_magic_icons: Dictionary
 var magic_mode: bool = false
@@ -52,7 +56,14 @@ func _ready() -> void:
 		icon.pivot_offset = icon.size / 2.0
 	state_machine.active_state_changed.connect(_on_state_changed)
 	_refresh_icons(state_machine.get_active_state())
-	
+	_update_progress_bars()
+	connect_signals()
+func connect_signals():
+	PlayerData.mana_changed.connect(_update_progress_bars)
+	PlayerData.mana_changed.connect(func(a:float,b:float):
+		print(a," mana : ",b))
+	PlayerData.stamina_changed.connect(_update_progress_bars)
+	PlayerData.health_changed.connect(_update_progress_bars)
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("magic"):
 		magic_mode = true
@@ -95,3 +106,9 @@ func _juice_icon(icon: TextureRect) -> void:
 	tween.tween_property(icon, "scale", Vector2(1.0, 1.0), 0.12).set_ease(Tween.EASE_IN_OUT)
 	tween.parallel().tween_property(icon, "modulate", Color(1.5, 1.5, 0.6), 0.08)
 	tween.tween_property(icon, "modulate", Color.WHITE, 0.12)
+
+func _update_progress_bars(current:float = -1.0, max:float= -1.0):
+	
+	health_bar.value = (PlayerData.health/PlayerData.MAX_HEALTH)  * 100
+	stamina_bar.value = (PlayerData.stamina/PlayerData.MAX_STAMINA)  * 100
+	mana_bar.value = (PlayerData.mana/PlayerData.MAX_MANA)  * 100

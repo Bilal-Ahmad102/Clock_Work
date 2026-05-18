@@ -43,6 +43,7 @@ animations = [{
 height = 34.0
 
 [node name="Dummy" type="CharacterBody2D" unique_id=1214057030]
+collision_layer = 2
 script = ExtResource("1_e6qbn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1003557395]

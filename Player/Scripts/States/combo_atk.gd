@@ -15,7 +15,7 @@ func _setup() -> void:
 
 func _enter() -> void:
 	if agent.sprite.flip_h: _player.sprite.offset = Vector2(-20,-30)
-	else:                 _player.sprite.offset = Vector2(20,-30)
+	else:                 _player.sprite.offset   = Vector2(20,-30)
 
 	play_anim_interval(&"combo_atk",1,9)
 	_player.full_stop_movement(true)

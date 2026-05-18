@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c6cxfhwssvsg1" path="res://addons/kenney_prototype_textures/green/texture_08.png" id="2_8od7v"]
 [ext_resource type="PackedScene" uid="uid://ccxw7mmjc3mys" path="res://Enemy/dummy.tscn" id="3_qc4db"]
 [ext_resource type="Texture2D" uid="uid://2ldyim0xaube" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="4_ys1qc"]
+[ext_resource type="PackedScene" uid="uid://2sik4qjwipnm" path="res://Player/Scenes/magic_dash_hitbox.tscn" id="5_35xla"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_qc4db"]
 size = Vector3(20, 20, 0)
@@ -46,3 +47,5 @@ texture = ExtResource("4_ys1qc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=848402247]
 position = Vector2(0, -3.5)
 shape = SubResource("WorldBoundaryShape2D_qc4db")
+
+[node name="magic_dash_hitbox" parent="." unique_id=565364502 instance=ExtResource("5_35xla")]

@@ -12,6 +12,7 @@ var facing_left : bool = false
 func _physics_process(delta: float) -> void:
 	# Global systems that run regardless of state
 	PlayerData.regen_stamina(delta)
+	PlayerData.regen_mana(delta)
 	PlayerData.tick_invincibility(delta)
 	_tick_coyote(delta)
 	_tick_jump_buffer(delta)
