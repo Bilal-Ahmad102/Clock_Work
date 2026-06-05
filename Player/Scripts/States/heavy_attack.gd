@@ -9,7 +9,7 @@ func _enter() -> void:
 	_player.play_anim(&"heavy_atk")
 	_player.full_stop_movement(true)
 	_player.sprite.frame_changed.connect(_on_combo_frame_changed)
-
+	
 func _on_combo_frame_changed() -> void:
 	match _player.sprite.frame:
 		# hit frames for each combo stage ; adjust to your spritesheet

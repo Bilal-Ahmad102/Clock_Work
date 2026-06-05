@@ -264,14 +264,7 @@
 [ext_resource type="Script" uid="uid://bo004q5uegjj0" path="res://Player/Scripts/States/magic_dash_atk.gd" id="231_rvw3r"]
 [ext_resource type="Script" uid="uid://ctrolnl4w0ogt" path="res://Player/Scripts/States/magic_heavy_atk.gd" id="260_d1yo2"]
 [ext_resource type="PackedScene" uid="uid://2sik4qjwipnm" path="res://Player/Scenes/magic_dash_hitbox.tscn" id="260_sqvu2"]
-[ext_resource type="Script" uid="uid://bh6ypuefy7q31" path="res://Player/Scripts/ui.gd" id="264_58rsl"]
-[ext_resource type="Texture2D" uid="uid://glyhj5wku1u" path="res://Assets/icons/heavy_attack.png" id="265_7l0r7"]
-[ext_resource type="Texture2D" uid="uid://cji7f0g6wlhvg" path="res://addons/kenney_input_prompts/PlayStation Series/Default/playstation_button_color_triangle.png" id="266_7l0r7"]
-[ext_resource type="Texture2D" uid="uid://dbxthl2n61sxg" path="res://Assets/icons/magic_heavy_attack.png" id="266_7l484"]
-[ext_resource type="Texture2D" uid="uid://ca5uxnt6bajo7" path="res://Assets/icons/dash.png" id="266_j5de8"]
-[ext_resource type="Texture2D" uid="uid://bhpmdkypcr1gt" path="res://Assets/icons/jump.png" id="268_7l484"]
-[ext_resource type="Texture2D" uid="uid://c57qrpalguesi" path="res://Assets/icons/light_atk.png" id="268_58rsl"]
-[ext_resource type="Texture2D" uid="uid://ld4vxty88n3s" path="res://Assets/icons/magic_dash.png" id="268_nwhhx"]
+[ext_resource type="PackedScene" uid="uid://2h260lewgii0" path="res://Player/Scenes/ui.tscn" id="265_yyexa"]
 [ext_resource type="Script" uid="uid://nd3y3koyo71g" path="res://Player/Scripts/hitbox.gd" id="272_nwhhx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0qu43"]
@@ -1188,17 +1181,6 @@ _data = {
 &"heavy_atk": SubResource("Animation_1iksy")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58rsl"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7l484"]
 size = Vector2(41, 40)
 
@@ -1289,141 +1271,11 @@ script = ExtResource("15_p5bkw")
 [node name="anim_player" type="AnimationPlayer" parent="." unique_id=591950326]
 libraries/ = SubResource("AnimationLibrary_w6aad")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=1287469083]
-script = ExtResource("264_58rsl")
-
-[node name="action_inputs" type="Control" parent="UI" unique_id=1984544651]
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -189.0
-offset_top = -178.0
-offset_right = -189.0
-offset_bottom = -178.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(1.5, 1.5)
-
-[node name="top_slot_panel" type="PanelContainer" parent="UI/action_inputs" unique_id=1910757417]
-layout_mode = 0
-offset_top = -35.0
-offset_right = 40.0
-offset_bottom = 5.0
-rotation = 0.7853982
-pivot_offset_ratio = Vector2(0.5, 0.5)
-theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
-
-[node name="TextureRect" type="TextureRect" parent="UI/action_inputs/top_slot_panel" unique_id=1306169224]
-visible = false
-layout_mode = 2
-texture = ExtResource("266_7l0r7")
-expand_mode = 1
-flip_h = true
-
-[node name="heavy_atk" type="TextureRect" parent="UI/action_inputs/top_slot_panel" unique_id=249410376]
-unique_name_in_owner = true
-layout_mode = 2
-texture = ExtResource("265_7l0r7")
-expand_mode = 1
-
-[node name="magic_heavy_atk" type="TextureRect" parent="UI/action_inputs/top_slot_panel" unique_id=838917485]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-texture = ExtResource("266_7l484")
-expand_mode = 1
-
-[node name="right_slot_panel" type="PanelContainer" parent="UI/action_inputs" unique_id=457808971]
-layout_mode = 0
-offset_left = 35.0
-offset_right = 75.0
-offset_bottom = 40.0
-rotation = 0.7853982
-pivot_offset_ratio = Vector2(0.5, 0.5)
-theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
-
-[node name="dash" type="TextureRect" parent="UI/action_inputs/right_slot_panel" unique_id=41435369]
-unique_name_in_owner = true
-layout_mode = 2
-texture = ExtResource("266_j5de8")
-expand_mode = 1
-
-[node name="magic_dash_atk" type="TextureRect" parent="UI/action_inputs/right_slot_panel" unique_id=1275268986]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-texture = ExtResource("268_nwhhx")
-expand_mode = 1
-
-[node name="left_slot_panel" type="PanelContainer" parent="UI/action_inputs" unique_id=1855190988]
-layout_mode = 0
-offset_left = -35.0
-offset_right = 5.0
-offset_bottom = 40.0
-rotation = 0.7853982
-pivot_offset_ratio = Vector2(0.5, 0.5)
-theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
-
-[node name="light_atk" type="TextureRect" parent="UI/action_inputs/left_slot_panel" unique_id=615411799]
-unique_name_in_owner = true
-layout_mode = 2
-texture = ExtResource("268_58rsl")
-expand_mode = 1
-
-[node name="bottom_slot_panel" type="PanelContainer" parent="UI/action_inputs" unique_id=491830545]
-layout_mode = 0
-offset_top = 35.0
-offset_right = 40.0
-offset_bottom = 75.0
-rotation = 0.7853982
-pivot_offset_ratio = Vector2(0.5, 0.5)
-theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
-
-[node name="jump" type="TextureRect" parent="UI/action_inputs/bottom_slot_panel" unique_id=309587408]
-unique_name_in_owner = true
-layout_mode = 2
-texture = ExtResource("268_7l484")
-expand_mode = 1
-
-[node name="Player_values" type="Control" parent="UI" unique_id=2144867464]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="VBoxContainer" parent="UI/Player_values" unique_id=1226362007]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 34.0
-offset_right = 186.0
-offset_bottom = 69.0
-
-[node name="health_bar" type="ProgressBar" parent="UI/Player_values/HBoxContainer" unique_id=2124520271]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 20)
-layout_mode = 2
-value = 80.0
-show_percentage = false
-
-[node name="stamina_bar" type="ProgressBar" parent="UI/Player_values/HBoxContainer" unique_id=1592889627]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-value = 80.0
-show_percentage = false
-
-[node name="mana_bar" type="ProgressBar" parent="UI/Player_values/HBoxContainer" unique_id=1908373141]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-value = 80.0
-show_percentage = false
+[node name="UI" parent="." unique_id=2036775235 instance=ExtResource("265_yyexa")]
 
 [node name="hitbox" type="Area2D" parent="." unique_id=46598134]
 unique_name_in_owner = true
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("272_nwhhx")
 

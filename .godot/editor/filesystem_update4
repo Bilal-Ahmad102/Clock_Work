@@ -1,0 +1,9 @@
+res://Enemy/thread_puppet.tscn
+res://Scenes/test.tscn
+res://Enemy/Scripts/States/attack.gd
+res://Player/Scenes/Player.tscn
+res://Enemy/Scripts/hitbox.gd
+res://Enemy/Scripts/Enemy_hitbox.gd
+res://Enemy/Scripts/enemy.gd
+res://Player/Scripts/hitbox.gd
+res://Enemy/dummy.tscn

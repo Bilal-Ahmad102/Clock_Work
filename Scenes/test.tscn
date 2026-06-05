@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ccxw7mmjc3mys" path="res://Enemy/dummy.tscn" id="3_qc4db"]
 [ext_resource type="Texture2D" uid="uid://2ldyim0xaube" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="4_ys1qc"]
 [ext_resource type="PackedScene" uid="uid://2sik4qjwipnm" path="res://Player/Scenes/magic_dash_hitbox.tscn" id="5_35xla"]
+[ext_resource type="PackedScene" uid="uid://bbtdnd04axu8n" path="res://Enemy/thread_puppet.tscn" id="6_i3aeo"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_qc4db"]
 size = Vector3(20, 20, 0)
@@ -49,3 +50,7 @@ position = Vector2(0, -3.5)
 shape = SubResource("WorldBoundaryShape2D_qc4db")
 
 [node name="magic_dash_hitbox" parent="." unique_id=565364502 instance=ExtResource("5_35xla")]
+visible = false
+
+[node name="thread_puppet" parent="." unique_id=608700024 instance=ExtResource("6_i3aeo")]
+position = Vector2(-583, -6)

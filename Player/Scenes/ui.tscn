@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://2h260lewgii0"]
+
+[ext_resource type="Script" uid="uid://bh6ypuefy7q31" path="res://Player/Scripts/ui.gd" id="1_a6btp"]
+[ext_resource type="Texture2D" uid="uid://cji7f0g6wlhvg" path="res://addons/kenney_input_prompts/PlayStation Series/Default/playstation_button_color_triangle.png" id="2_wcihj"]
+[ext_resource type="Texture2D" uid="uid://glyhj5wku1u" path="res://Assets/icons/heavy_attack.png" id="3_nvru1"]
+[ext_resource type="Texture2D" uid="uid://dbxthl2n61sxg" path="res://Assets/icons/magic_heavy_attack.png" id="4_31l3j"]
+[ext_resource type="Texture2D" uid="uid://ca5uxnt6bajo7" path="res://Assets/icons/dash.png" id="5_aosp7"]
+[ext_resource type="Texture2D" uid="uid://ld4vxty88n3s" path="res://Assets/icons/magic_dash.png" id="6_lm8xx"]
+[ext_resource type="Texture2D" uid="uid://c57qrpalguesi" path="res://Assets/icons/light_atk.png" id="7_w16tx"]
+[ext_resource type="Texture2D" uid="uid://bhpmdkypcr1gt" path="res://Assets/icons/jump.png" id="8_2pi83"]
+[ext_resource type="PackedScene" uid="uid://ck76uh7i3xmoe" path="res://Player/Scenes/UI/Player_values.tscn" id="9_wcihj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58rsl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="UI" type="CanvasLayer" unique_id=2036775235]
+script = ExtResource("1_a6btp")
+
+[node name="action_inputs" type="Control" parent="." unique_id=1478792034]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -189.0
+offset_top = -178.0
+offset_right = -189.0
+offset_bottom = -178.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+
+[node name="top_slot_panel" type="PanelContainer" parent="action_inputs" unique_id=33581465]
+layout_mode = 0
+offset_top = -35.0
+offset_right = 40.0
+offset_bottom = 5.0
+rotation = 0.7853982
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
+
+[node name="TextureRect" type="TextureRect" parent="action_inputs/top_slot_panel" unique_id=731625161]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_wcihj")
+expand_mode = 1
+flip_h = true
+
+[node name="heavy_atk" type="TextureRect" parent="action_inputs/top_slot_panel" unique_id=1289413775]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_nvru1")
+expand_mode = 1
+
+[node name="magic_heavy_atk" type="TextureRect" parent="action_inputs/top_slot_panel" unique_id=237644885]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = ExtResource("4_31l3j")
+expand_mode = 1
+
+[node name="right_slot_panel" type="PanelContainer" parent="action_inputs" unique_id=276010160]
+layout_mode = 0
+offset_left = 35.0
+offset_right = 75.0
+offset_bottom = 40.0
+rotation = 0.7853982
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
+
+[node name="dash" type="TextureRect" parent="action_inputs/right_slot_panel" unique_id=616368527]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_aosp7")
+expand_mode = 1
+
+[node name="magic_dash_atk" type="TextureRect" parent="action_inputs/right_slot_panel" unique_id=1011673455]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = ExtResource("6_lm8xx")
+expand_mode = 1
+
+[node name="left_slot_panel" type="PanelContainer" parent="action_inputs" unique_id=1272798585]
+layout_mode = 0
+offset_left = -35.0
+offset_right = 5.0
+offset_bottom = 40.0
+rotation = 0.7853982
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
+
+[node name="light_atk" type="TextureRect" parent="action_inputs/left_slot_panel" unique_id=697115157]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("7_w16tx")
+expand_mode = 1
+
+[node name="bottom_slot_panel" type="PanelContainer" parent="action_inputs" unique_id=190063373]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 40.0
+offset_bottom = 75.0
+rotation = 0.7853982
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_58rsl")
+
+[node name="jump" type="TextureRect" parent="action_inputs/bottom_slot_panel" unique_id=142112505]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("8_2pi83")
+expand_mode = 1
+
+[node name="Player_values_UI" parent="." unique_id=1949614249 instance=ExtResource("9_wcihj")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 42.0
+offset_top = 42.0
+offset_right = 42.0
+offset_bottom = 42.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(1.5, 1.5)

@@ -10,7 +10,7 @@ func _ready() -> void:
 	body_entered.connect(_on_hitbox_body_entered)
 
 func _setup_dash_shape() -> void:
-	var dash_distance := PlayerData.DASH_SPEED * PlayerData.DASH_DURATION  # 180px
+	var dash_distance = PlayerData.DASH_SPEED * PlayerData.DASH_DURATION  # 180px
 	dash_distance += dash_distance * .4
 	var shape := RectangleShape2D.new()
 	shape.size = Vector2(dash_distance, 32)  # 180 wide, 32 tall ; adjust height to player height
