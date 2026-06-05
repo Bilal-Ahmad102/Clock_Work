@@ -7,3 +7,9 @@ res://Enemy/Scripts/Enemy_hitbox.gd
 res://Enemy/Scripts/enemy.gd
 res://Player/Scripts/hitbox.gd
 res://Enemy/dummy.tscn
+res://Player/Scripts/player.gd
+res://Player/Scripts/States/fall.gd
+res://Player/Scripts/States/edge_grab.gd
+res://Player/Scripts/debug.gd
+res://Player/Scripts/States/combo_atk.gd
+res://Player/Scripts/States/idle_jump.gd

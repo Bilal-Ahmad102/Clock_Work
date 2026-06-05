@@ -10,9 +10,12 @@ func _setup() -> void:
 
 func _enter() -> void:
 	_player.play_anim(&"fall")
+	_player.is_falling = true
+
 func _exit() -> void:
 	get_root().previous_state = self
-
+	_player.is_falling = false
+	
 func _update(delta: float) -> void:
 	_player.apply_gravity(delta)
 	_player.apply_horizontal(delta, PlayerData.RUN_SPEED)

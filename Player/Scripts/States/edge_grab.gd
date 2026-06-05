@@ -1,7 +1,7 @@
 extends LimboState
 
+
 @onready var debug: Label = %debug
-@onready var hitbox: Area2D = %hitbox
 
 var _player: CharacterBody2D
 var combo_atk : int = 0
@@ -14,8 +14,8 @@ func _setup() -> void:
 	_player = agent  # agent = the CharacterBody2D passed to hsm.initialize()
 
 func _enter() -> void:
-	if agent.sprite.flip_h: _player.sprite.offset = Vector2(-20,-30)
-	else:                 _player.sprite.offset   = Vector2(20,-30)
+	#if agent.sprite.flip_h: _player.sprite.offset = Vector2(-20,-30)
+	#else:                 _player.sprite.offset   = Vector2(20,-30)
 
 	play_anim_interval(&"combo_atk",1,9)
 	_player.full_stop_movement(true)
@@ -23,13 +23,13 @@ func _enter() -> void:
 	_player.sprite.frame_changed.connect(_on_combo_frame_changed)
 
 func _on_combo_frame_changed() -> void:
-	match _player.sprite.frame:
+	#match _player.sprite.frame:
 		# hit frames for each combo stage ; adjust to your spritesheet
-		4,6,7,8:            hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_1)
-		11,12,13,14:        hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_2)
-		18,19,20,21,22,23:  hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_3)
-		_:                  hitbox._deactivate_hitbox()
-
+		#4,6,7,8:            hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_1)
+		#11,12,13,14:        hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_2)
+		#18,19,20,21,22,23:  hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_3)
+		#_:                  hitbox._deactivate_hitbox()
+	pass
 func _exit() -> void:
 	combo_atk = 0
 	combo_requested = false

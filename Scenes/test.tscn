@@ -36,7 +36,7 @@ texture = ExtResource("2_8od7v")
 position = Vector2(207, -5)
 
 [node name="Player" parent="." unique_id=196885234 instance=ExtResource("1_lc1oi")]
-position = Vector2(0, -5)
+position = Vector2(-66, -85)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1136435925]
 

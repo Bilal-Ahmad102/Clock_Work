@@ -4,27 +4,34 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var state_machine: LimboHSM = $state_machine
 @onready var hitbox: Area2D = %hitbox
+@onready var chest_ray: RayCast2D = %chest_ray
+@onready var head_ray: RayCast2D = %head_ray
 
 @onready var fx_player: AnimatedSprite2D = %FX_player
+@onready var ui: CanvasLayer = $UI
 
 var facing_left : bool = false
+var is_falling  : bool = false
+
+func _ready() -> void:
+	ui.show()
 
 func _physics_process(delta: float) -> void:
 	# Global systems that run regardless of state
 	PlayerData.regen_stamina(delta)
 	PlayerData.regen_mana(delta)
 	PlayerData.tick_invincibility(delta)
+
 	_tick_coyote(delta)
 	_tick_jump_buffer(delta)
+	var can_grab = _check_ledge_grab()
+	%debug2.text = "True" if can_grab else "false"
 
-	# Let the active state modify velocity, then move
+	if !is_falling and !is_on_floor() :
+		state_machine.dispatch(&"fall")
+
 	move_and_slide()
 
-	# Track floor for coyote time
-	var on_floor_now := is_on_floor()
-	if not PlayerData.was_on_floor and on_floor_now:
-		PlayerData.landed.emit()
-	PlayerData.was_on_floor = on_floor_now
 
 # ── Gravity (called by airborne states) ──────────────────────
 func apply_gravity(delta: float) -> void:
@@ -71,13 +78,27 @@ func play_anim(anim: StringName, start_frame: int = 0) -> void:
 
 #endregion Animation Helper Functions
 
+# Edge Grab Functions
+func _check_ledge_grab() -> bool:
+	if is_on_floor() or not is_on_wall():
+		return false
+	var chest_hit = chest_ray.is_colliding()
+	var head_clear = not head_ray.is_colliding()
+	var moving_toward_wall = (velocity.x > 0 and !facing_left) or (velocity.x < 0 and facing_left)
+	return chest_hit and head_clear and moving_toward_wall
 
 # ── Coyote / jump-buffer ticks ───────────────────────────────
 func _tick_coyote(delta: float) -> void:
-	if PlayerData.was_on_floor and not is_on_floor():
+	var on_floor_now := is_on_floor()
+	if PlayerData.was_on_floor and not on_floor_now:
 		PlayerData.coyote_timer = PlayerData.COYOTE_TIME
 	if PlayerData.coyote_timer > 0.0:
 		PlayerData.coyote_timer -= delta
+
+	# Track floor for coyote time
+	if not PlayerData.was_on_floor and on_floor_now:
+		PlayerData.landed.emit()
+	PlayerData.was_on_floor = on_floor_now
 
 func _tick_jump_buffer(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
@@ -92,4 +113,3 @@ func set_movement_locked(locked: bool) -> void:
 func full_stop_movement(value :bool ):
 	if value:
 		velocity = Vector2.ZERO
-	
