@@ -14,11 +14,16 @@ extends LimboHSM
 @onready var shield_block: LimboState = $shield_block
 @onready var parry: LimboState = $parry
 @onready var heavy_atk: LimboState = $heavy_atk
+@onready var idle_jump: LimboState = $idle_jump
+@onready var edge_grab: LimboState = $edge_grab
 
 @onready var magic_dash_atk: LimboState = $magic_dash_atk
 @onready var magic_heavy_atk: LimboState = $magic_heavy_atk
-
 '''================= States ======================='''
+
+
+@onready var chest_ray: RayCast2D = %chest_ray
+@onready var head_ray: RayCast2D = %head_ray
 
 
 var previous_state : LimboState 
@@ -50,7 +55,7 @@ func _on_animation_finished():
 
 func fill_state_to_states_dictionary() -> void:
 	state_to_states_transition = {
-		idle:             [run, walk, dash, fall, combo_atk, 
+		idle:             [run, walk, dash, fall, idle_jump, combo_atk, 
 						   heavy_atk, shield_block,parry,magic_dash_atk,magic_heavy_atk],
 		walk:             [run, dash, fall, combo_atk, heavy_atk, shield_block,parry],
 		run:              [jump, run, dash, fall, sprint_atk,parry],
@@ -64,7 +69,9 @@ func fill_state_to_states_dictionary() -> void:
 		heavy_atk:        [walk,idle],
 		parry :           [shield_block],
 		magic_dash_atk:   [idle],
-		magic_heavy_atk:  [idle]
+		magic_heavy_atk:  [idle],
+		idle_jump:        [idle,edge_grab],
+		edge_grab:        [idle]
 	}
 
 func _init_state_machine_():
@@ -81,20 +88,22 @@ func _init_transitions() -> void:
 			add_transition(from_state, to_state, _get_event(to_state))
 
 func _get_event(to_state: LimboState) -> StringName:
-	if to_state == idle:        return &"idle"
-	if to_state == walk:        return &"walk"
-	if to_state == run:         return &"run"
-	if to_state == jump:        return &"jump"
-	if to_state == land:        return &"land"
-	if to_state == fall:        return &"fall"
-	if to_state == dash:        return &"dash"
-	if to_state == combo_atk:   return &"combo_atk"
-	if to_state == sprint_atk:  return &"sprint_atk"
-	if to_state == shield_block:return &"shield_block"
-	if to_state == heavy_atk:   return &"heavy_atk"
-	if to_state == parry:   return &"parry"
+	if to_state == idle:             return &"idle"
+	if to_state == walk:             return &"walk"
+	if to_state == run:              return &"run"
+	if to_state == jump:             return &"jump"
+	if to_state == land:             return &"land"
+	if to_state == fall:             return &"fall"
+	if to_state == dash:             return &"dash"
+	if to_state == combo_atk:        return &"combo_atk"
+	if to_state == sprint_atk:       return &"sprint_atk"
+	if to_state == shield_block:     return &"shield_block"
+	if to_state == heavy_atk:        return &"heavy_atk"
+	if to_state == parry:            return &"parry"
 	if to_state == magic_dash_atk:   return &"magic_dash_atk"
-	if to_state == magic_heavy_atk:   return &"magic_heavy_atk"
+	if to_state == magic_heavy_atk:  return &"magic_heavy_atk"
+	if to_state == idle_jump:        return &"idle_jump"
+	if to_state == edge_grab:        return &"edge_grab"
 	
 	push_error("No event found for state: " + to_state.name)
 	return &""
@@ -130,9 +139,15 @@ func input_for_walk():
 
 func input_for_jump():
 	if PlayerData.jump_buffer_timer > 0.0 or Input.is_action_just_pressed("jump"):
-		dispatch(&"jump")
+		if get_active_state() == idle:
+			dispatch(&"idle_jump")
+		else:
+			dispatch(&"jump")
 
-
+func check_for_edge_grab():
+	if chest_ray.is_colliding() and !head_ray.is_colliding():
+		dispatch(&"edge_grab")
+		
 func input_for_dash():
 	if Input.is_action_just_pressed("dash") and !Input.is_action_pressed("magic")\
 			and PlayerData.stamina >= PlayerData.DASH_STAMINA_COST:

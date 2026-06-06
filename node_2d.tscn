@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dbf6f3axcwta5"]
+
+[ext_resource type="Script" uid="uid://c42sbkmsbqcfx" path="res://node_2d.gd" id="1_kdubu"]
+[ext_resource type="Texture2D" uid="uid://m53xh36qljlw" path="res://icon.svg" id="1_q6r6c"]
+[ext_resource type="Script" uid="uid://bepnihd7w544x" path="res://tween_composer/tween_composer.gd" id="2_kdubu"]
+[ext_resource type="Script" uid="uid://daxe4s6rqjw57" path="res://tween_composer/ConfigurationResources/tween_sequence_resource.gd" id="3_d21ai"]
+[ext_resource type="Script" uid="uid://b2cnshkmciixf" path="res://tween_composer/ConfigurationResources/tween_step_collection_resource.gd" id="4_rj586"]
+[ext_resource type="Script" uid="uid://bq7aba2n0qrym" path="res://tween_composer/ConfigurationResources/tween_step_item_resource.gd" id="5_4d7sh"]
+
+[sub_resource type="Resource" id="Resource_ir8iy"]
+resource_local_to_scene = true
+script = ExtResource("5_4d7sh")
+send_triggers = Array[String](["NICE"])
+property_name = "position"
+target_value = Vector3(50, 50, 0)
+metadata/_custom_type_script = "uid://bq7aba2n0qrym"
+
+[sub_resource type="Resource" id="Resource_hqns4"]
+resource_local_to_scene = true
+script = ExtResource("4_rj586")
+step_collection = Array[ExtResource("5_4d7sh")]([SubResource("Resource_ir8iy")])
+metadata/_custom_type_script = "uid://b2cnshkmciixf"
+
+[sub_resource type="Resource" id="Resource_x0ka3"]
+script = ExtResource("3_d21ai")
+tween_steps = SubResource("Resource_hqns4")
+loop = false
+metadata/_custom_type_script = "uid://daxe4s6rqjw57"
+
+[node name="Node2D" type="Node2D" unique_id=1732255158]
+script = ExtResource("1_kdubu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1061222229]
+position = Vector2(656, 349)
+texture = ExtResource("1_q6r6c")
+
+[node name="TweenComposer" type="Node" parent="Sprite2D" unique_id=871955818]
+script = ExtResource("2_kdubu")
+tween_sequence = SubResource("Resource_x0ka3")
+metadata/_custom_type_script = "uid://bepnihd7w544x"
+
+[connection signal="trigger_fired" from="Sprite2D/TweenComposer" to="." method="_on_tween_composer_trigger_fired"]

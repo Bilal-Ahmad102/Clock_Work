@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ctvvovkefe8jc"]
 
 [ext_resource type="PackedScene" uid="uid://ci3xy2jkuj5jo" path="res://Player/Scenes/Player.tscn" id="1_lc1oi"]
+[ext_resource type="Texture2D" uid="uid://x5dtwohvwyl4" path="res://addons/kenney_prototype_textures/green/texture_05.png" id="2_5wyu1"]
 [ext_resource type="Texture2D" uid="uid://c6cxfhwssvsg1" path="res://addons/kenney_prototype_textures/green/texture_08.png" id="2_8od7v"]
 [ext_resource type="PackedScene" uid="uid://ccxw7mmjc3mys" path="res://Enemy/dummy.tscn" id="3_qc4db"]
 [ext_resource type="Texture2D" uid="uid://2ldyim0xaube" path="res://addons/kenney_prototype_textures/dark/texture_12.png" id="4_ys1qc"]
@@ -11,7 +12,10 @@
 size = Vector3(20, 20, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ys1qc"]
-size = Vector3(30, 40, 0)
+size = Vector3(30, 150, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wyu1"]
+size = Vector2(30, 150)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8od7v"]
 size = Vector3(100000, 100, 1)
@@ -28,9 +32,14 @@ mesh = SubResource("BoxMesh_qc4db")
 texture = ExtResource("2_8od7v")
 
 [node name="MeshInstance2D2" type="MeshInstance2D" parent="Node2D" unique_id=1774584605]
-position = Vector2(143, -25)
+position = Vector2(16, -80)
 mesh = SubResource("BoxMesh_ys1qc")
-texture = ExtResource("2_8od7v")
+texture = ExtResource("2_5wyu1")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/MeshInstance2D2" unique_id=2044250997]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D2/StaticBody2D" unique_id=95333989]
+shape = SubResource("RectangleShape2D_5wyu1")
 
 [node name="Dummy" parent="." unique_id=1214057030 instance=ExtResource("3_qc4db")]
 position = Vector2(207, -5)
@@ -54,3 +63,5 @@ visible = false
 
 [node name="thread_puppet" parent="." unique_id=608700024 instance=ExtResource("6_i3aeo")]
 position = Vector2(-583, -6)
+
+[editable path="Player"]

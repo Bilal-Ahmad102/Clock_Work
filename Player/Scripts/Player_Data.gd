@@ -11,7 +11,7 @@ const DECELERATION     := 2200.0
 const AIR_CONTROL      := 0.6
 # ── Jump config ──────────────────────────────────────────────
 const JUMP_VELOCITY         := -520.0
-const JUMP_HOLD_GRAV_SCALE  := 0.55
+const JUMP_HOLD_GRAV_SCALE  := 1.15
 const FALL_GRAV_SCALE       := 1.6
 const COYOTE_TIME           := 0.08
 const JUMP_BUFFER_TIME      := 0.10

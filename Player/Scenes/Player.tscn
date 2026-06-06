@@ -137,11 +137,9 @@
 [ext_resource type="Texture2D" uid="uid://dqsw2bkvflkt0" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Grabbing/Grabbing5.png" id="39_ojflh"]
 [ext_resource type="Texture2D" uid="uid://kqbjc4ormyw1" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/SprintJump/SLand/SLand13.png" id="39_w6cbl"]
 [ext_resource type="Texture2D" uid="uid://ovtfm1p7781h" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Grabbing/Grabbing6.png" id="40_mjhgx"]
-[ext_resource type="Texture2D" uid="uid://bmxwbvncef0o5" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Land/Land1.png" id="41_pnwat"]
-[ext_resource type="Texture2D" uid="uid://df005fokptq2w" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Land/Land2.png" id="42_ygk3c"]
-[ext_resource type="Texture2D" uid="uid://o4xtf0cclqbh" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Land/Land3.png" id="43_20afk"]
-[ext_resource type="Texture2D" uid="uid://d28a6mqlde561" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Land/Land4.png" id="44_exo13"]
-[ext_resource type="Texture2D" uid="uid://cb6gqb000dtmh" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Land/Land5.png" id="45_40xd7"]
+[ext_resource type="Texture2D" uid="uid://1vcf54wsa61m" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Falling/Fall1.png" id="41_gj6pp"]
+[ext_resource type="Texture2D" uid="uid://bbhxcqu2qwwhb" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Falling/Fall2.png" id="42_t2or6"]
+[ext_resource type="Texture2D" uid="uid://01rwpgn86cj6" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Falling/Fall3.png" id="43_o3o7e"]
 [ext_resource type="Texture2D" uid="uid://cel4ifbb0fdmt" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull1.png" id="46_fddbf"]
 [ext_resource type="Texture2D" uid="uid://dhc33jkamq3fq" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull2.png" id="47_xibd7"]
 [ext_resource type="Texture2D" uid="uid://b8010ggea5d1w" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull3.png" id="48_nkmpi"]
@@ -307,6 +305,7 @@
 [ext_resource type="Script" uid="uid://nd3y3koyo71g" path="res://Player/Scripts/hitbox.gd" id="272_nwhhx"]
 [ext_resource type="Script" uid="uid://bf35uno0rel6f" path="res://Player/Scripts/States/edge_grab.gd" id="287_ygk3c"]
 [ext_resource type="Script" uid="uid://dvvp4fh13cy5v" path="res://Player/Scripts/States/idle_jump.gd" id="296_l33hi"]
+[ext_resource type="Script" uid="uid://bepnihd7w544x" path="res://tween_composer/tween_composer.gd" id="306_ydxku"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0qu43"]
 radius = 9.0
@@ -444,23 +443,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"edge_grab",
-"speed": 7.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("41_pnwat")
+"texture": ExtResource("41_gj6pp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("42_ygk3c")
+"texture": ExtResource("42_t2or6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("43_20afk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_exo13")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_40xd7")
+"texture": ExtResource("43_o3o7e")
 }],
 "loop": true,
 "name": &"edge_grab_fall",
@@ -485,7 +478,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("51_1kmt4")
 }],
-"loop": true,
+"loop": false,
 "name": &"edge_grab_pull",
 "speed": 8.0
 }, {
@@ -806,7 +799,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_jump",
-"speed": 8.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1370,10 +1363,26 @@ shape = SubResource("CapsuleShape2D_0qu43")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=516940414]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_on2vx")
-animation = &"idle_jump"
+animation = &"edge_grab"
 autoplay = "idle"
-frame = 15
+frame = 5
 offset = Vector2(-2, -21)
+
+[node name="sprite_tween_composer" type="Node" parent="AnimatedSprite2D" unique_id=875446153]
+script = ExtResource("306_ydxku")
+metadata/_custom_type_script = "uid://bepnihd7w544x"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=1687802157]
+texture_filter = 3
+sprite_frames = SubResource("SpriteFrames_on2vx")
+animation = &"edge_grab_pull"
+autoplay = "idle"
+frame = 5
+offset = Vector2(10, -28)
+
+[node name="sprite_tween_composer" type="Node" parent="AnimatedSprite2D2" unique_id=1247063452]
+script = ExtResource("306_ydxku")
+metadata/_custom_type_script = "uid://bepnihd7w544x"
 
 [node name="FX_player" type="AnimatedSprite2D" parent="." unique_id=1829391272]
 unique_name_in_owner = true
@@ -1453,6 +1462,7 @@ script = ExtResource("15_p5bkw")
 
 [node name="debug2" type="Label" parent="." unique_id=1421261191]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -1475,14 +1485,21 @@ script = ExtResource("272_nwhhx")
 position = Vector2(40, -20)
 shape = SubResource("RectangleShape2D_7l484")
 
-[node name="Node" type="Node2D" parent="." unique_id=945174928]
+[node name="Raycasts" type="Node2D" parent="." unique_id=945174928]
 
-[node name="chest_ray" type="RayCast2D" parent="Node" unique_id=1200251650]
+[node name="chest_ray" type="RayCast2D" parent="Raycasts" unique_id=1200251650]
 unique_name_in_owner = true
 position = Vector2(6, -22)
 target_position = Vector2(50, 0)
 
-[node name="head_ray" type="RayCast2D" parent="Node" unique_id=497064185]
+[node name="head_ray" type="RayCast2D" parent="Raycasts" unique_id=497064185]
 unique_name_in_owner = true
 position = Vector2(4, -38)
 target_position = Vector2(50, 0)
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=900225904]
+position = Vector2(22, -50)
+
+[node name="player_tween_composer" type="Node" parent="." unique_id=1692933240]
+script = ExtResource("306_ydxku")
+metadata/_custom_type_script = "uid://bepnihd7w544x"
