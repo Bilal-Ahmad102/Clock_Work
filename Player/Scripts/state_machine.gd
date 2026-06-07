@@ -61,7 +61,7 @@ func fill_state_to_states_dictionary() -> void:
 		run:              [jump, run, dash, fall, sprint_atk,parry],
 		jump:             [dash, fall],
 		land:             [run, walk, dash, fall],
-		fall:             [land],
+		fall:             [land,edge_grab],
 		dash:             [run, walk, fall],
 		combo_atk:        [walk,idle],
 		sprint_atk:       [run],

@@ -1,7 +1,13 @@
-## PlayerData.gd
-## Autoload singleton — all LimboStates read/write shared player values here.
-## Add to Project > Project Settings > Autoload as "PlayerData"
 extends Node
+
+
+# ── Maria's Scores ──────────────────────────────────────────
+var authority  : float = 0.0
+var presence   : float = 0.0
+var influence  : float = 0.0
+var resolve    : float = 0.0
+
+
 
 # ── Movement config ──────────────────────────────────────────
 const WALK_SPEED       := 175.0
@@ -79,14 +85,19 @@ var movement_locked    : bool  = false
 # ── Signals ──────────────────────────────────────────────────
 signal stamina_changed(current: float, maximum: float)
 signal mana_changed(current: float, maximum: float)
+
+
+@warning_ignore("unused_signal")
 signal health_changed(current: float, maximum: float)
-
+@warning_ignore("unused_signal")
 signal dash_started
+@warning_ignore("unused_signal")
 signal dash_ended
-
+@warning_ignore("unused_signal")
 signal magic_dash_atk_started
+@warning_ignore("unused_signal")
 signal magic_dash_atk_ended
-
+@warning_ignore("unused_signal")
 signal landed
 
 # ── Stamina helpers ───────────────────────────────────────────

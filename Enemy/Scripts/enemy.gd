@@ -59,6 +59,7 @@ func take_damage(amount: float) -> void:
 		state_machine.dispatch(&"stagger")
 	health_bar.value = hp
 	
+	
 func face_player() -> void:
 	if player:
 		hitbox.change_face(sprite.flip_h)

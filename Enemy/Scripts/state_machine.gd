@@ -39,7 +39,7 @@ func _init_state_machine() -> void:
 	_init_transitions()
 	initialize(get_parent())
 	set_active(true)
-
+@warning_ignore("unused_parameter")
 func _update(delta: float) -> void:
 	%debug.text = str(get_active_state().name)
 

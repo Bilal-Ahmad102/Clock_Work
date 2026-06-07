@@ -7,7 +7,8 @@ func _setup() -> void:
 
 func _enter() -> void:
 	_enemy.sprite.play("walk")
-
+	
+@warning_ignore("unused_parameter")
 func _update(delta: float) -> void:
 	if not _enemy.player:
 		get_root().dispatch(&"idle")

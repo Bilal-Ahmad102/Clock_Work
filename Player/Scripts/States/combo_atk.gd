@@ -41,7 +41,7 @@ func _exit() -> void:
 
 func _on_animation_finished() -> void:
 	get_root().dispatch(&"idle")
-	
+@warning_ignore("unused_parameter")
 func _update(delta: float) -> void:
 	debug.add_debug(combo_atk)
 	if Input.is_action_just_pressed("combo_atk") and combo_atk <= 2 :

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="TweenSequence" format=3 uid="uid://umyaqqc1ve5j"]
+
+[ext_resource type="Script" uid="uid://daxe4s6rqjw57" path="res://tween_composer/ConfigurationResources/tween_sequence_resource.gd" id="1_mgidg"]
+[ext_resource type="Script" uid="uid://b2cnshkmciixf" path="res://tween_composer/ConfigurationResources/tween_step_collection_resource.gd" id="2_tgcxm"]
+[ext_resource type="Script" uid="uid://bq7aba2n0qrym" path="res://tween_composer/ConfigurationResources/tween_step_item_resource.gd" id="3_hty7g"]
+
+[sub_resource type="Resource" id="Resource_mgidg"]
+resource_local_to_scene = true
+resource_name = "Tween Step"
+script = ExtResource("3_hty7g")
+easing = 2
+send_triggers = Array[String]([""])
+property_name = "position"
+target_value = Vector3(21, 35, 0)
+metadata/_custom_type_script = "uid://bq7aba2n0qrym"
+
+[sub_resource type="Resource" id="Resource_tgcxm"]
+resource_local_to_scene = true
+resource_name = "sprite_edge_pull"
+script = ExtResource("2_tgcxm")
+tween_name = "sprite_edge_pull"
+step_collection = Array[ExtResource("3_hty7g")]([SubResource("Resource_mgidg")])
+metadata/_custom_type_script = "uid://b2cnshkmciixf"
+
+[resource]
+script = ExtResource("1_mgidg")
+tween_steps = SubResource("Resource_tgcxm")
+tween_duration = 0.3
+loop = false
+persist_tween_information = true
+metadata/_custom_type_script = "uid://daxe4s6rqjw57"

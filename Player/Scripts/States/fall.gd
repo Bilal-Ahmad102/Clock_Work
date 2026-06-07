@@ -19,7 +19,7 @@ func _exit() -> void:
 func _update(delta: float) -> void:
 	_player.apply_gravity(delta)
 	_player.apply_horizontal(delta, PlayerData.RUN_SPEED)
-
+	get_root().check_for_edge_grab()
 	# Coyote jump — can still jump briefly after leaving a ledge
 	if _jump_requested() and PlayerData.coyote_timer > 0.0:
 		get_root().dispatch(&"jump")

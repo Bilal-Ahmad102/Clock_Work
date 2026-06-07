@@ -41,8 +41,21 @@ texture = ExtResource("2_5wyu1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D2/StaticBody2D" unique_id=95333989]
 shape = SubResource("RectangleShape2D_5wyu1")
 
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="Node2D" unique_id=1677166543]
+position = Vector2(-142, -80)
+mesh = SubResource("BoxMesh_ys1qc")
+texture = ExtResource("2_5wyu1")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/MeshInstance2D3" unique_id=639750564]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/MeshInstance2D3/StaticBody2D" unique_id=1290523868]
+shape = SubResource("RectangleShape2D_5wyu1")
+
 [node name="Dummy" parent="." unique_id=1214057030 instance=ExtResource("3_qc4db")]
 position = Vector2(207, -5)
+
+[node name="thread_puppet" parent="." unique_id=608700024 instance=ExtResource("6_i3aeo")]
+position = Vector2(-583, -6)
 
 [node name="Player" parent="." unique_id=196885234 instance=ExtResource("1_lc1oi")]
 position = Vector2(-66, -85)
@@ -60,8 +73,3 @@ shape = SubResource("WorldBoundaryShape2D_qc4db")
 
 [node name="magic_dash_hitbox" parent="." unique_id=565364502 instance=ExtResource("5_35xla")]
 visible = false
-
-[node name="thread_puppet" parent="." unique_id=608700024 instance=ExtResource("6_i3aeo")]
-position = Vector2(-583, -6)
-
-[editable path="Player"]

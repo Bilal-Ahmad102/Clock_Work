@@ -10,7 +10,8 @@ func _process(_delta: float) -> void:
 	var state_line := str(state_machine.get_active_state().name)
 	text = state_line + "\n" + "\n".join(_log)
 
-func add_debug(entry: String) -> void:
+func add_debug(_entry) -> void:
+	var entry = str(_entry)
 	_log.push_front(str(entry))
 	if _log.size() > MAX_LINES:
 		_log.resize(MAX_LINES)

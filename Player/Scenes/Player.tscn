@@ -140,8 +140,13 @@
 [ext_resource type="Texture2D" uid="uid://1vcf54wsa61m" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Falling/Fall1.png" id="41_gj6pp"]
 [ext_resource type="Texture2D" uid="uid://bbhxcqu2qwwhb" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Falling/Fall2.png" id="42_t2or6"]
 [ext_resource type="Texture2D" uid="uid://01rwpgn86cj6" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Falling/Fall3.png" id="43_o3o7e"]
+[ext_resource type="Texture2D" uid="uid://fnc5hsy8x2ch" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Land/FX/Land(FX)1.png" id="44_1akx2"]
+[ext_resource type="Texture2D" uid="uid://crqhodsk3m7r4" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Land/FX/Land(FX)2.png" id="45_sgi41"]
 [ext_resource type="Texture2D" uid="uid://cel4ifbb0fdmt" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull1.png" id="46_fddbf"]
+[ext_resource type="Texture2D" uid="uid://5bcsj2jjv1cy" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Land/FX/Land(FX)3.png" id="46_uaasv"]
+[ext_resource type="Texture2D" uid="uid://dnmlqf7fjc3ao" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Land/FX/Land(FX)4.png" id="47_31d85"]
 [ext_resource type="Texture2D" uid="uid://dhc33jkamq3fq" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull2.png" id="47_xibd7"]
+[ext_resource type="Texture2D" uid="uid://s4rscu1g3v7m" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Land/FX/Land(FX)5.png" id="48_86v1a"]
 [ext_resource type="Texture2D" uid="uid://b8010ggea5d1w" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull3.png" id="48_nkmpi"]
 [ext_resource type="Texture2D" uid="uid://fgi416iwngqf" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull4.png" id="49_ticau"]
 [ext_resource type="Texture2D" uid="uid://dvbugj4tt6ajq" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/EdgeGrab/Pull/Pull5.png" id="50_00qex"]
@@ -305,7 +310,7 @@
 [ext_resource type="Script" uid="uid://nd3y3koyo71g" path="res://Player/Scripts/hitbox.gd" id="272_nwhhx"]
 [ext_resource type="Script" uid="uid://bf35uno0rel6f" path="res://Player/Scripts/States/edge_grab.gd" id="287_ygk3c"]
 [ext_resource type="Script" uid="uid://dvvp4fh13cy5v" path="res://Player/Scripts/States/idle_jump.gd" id="296_l33hi"]
-[ext_resource type="Script" uid="uid://bepnihd7w544x" path="res://tween_composer/tween_composer.gd" id="306_ydxku"]
+[ext_resource type="Script" uid="uid://d2y4nexf3hia1" path="res://Player/Scripts/raycasts.gd" id="312_sgi41"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0qu43"]
 radius = 9.0
@@ -458,6 +463,26 @@ animations = [{
 "loop": true,
 "name": &"edge_grab_fall",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_1akx2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_sgi41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_uaasv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_31d85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_86v1a")
+}],
+"loop": false,
+"name": &"edge_grab_land",
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1363,26 +1388,9 @@ shape = SubResource("CapsuleShape2D_0qu43")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=516940414]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_on2vx")
-animation = &"edge_grab"
+animation = &"to_edge_grab"
 autoplay = "idle"
-frame = 5
 offset = Vector2(-2, -21)
-
-[node name="sprite_tween_composer" type="Node" parent="AnimatedSprite2D" unique_id=875446153]
-script = ExtResource("306_ydxku")
-metadata/_custom_type_script = "uid://bepnihd7w544x"
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=1687802157]
-texture_filter = 3
-sprite_frames = SubResource("SpriteFrames_on2vx")
-animation = &"edge_grab_pull"
-autoplay = "idle"
-frame = 5
-offset = Vector2(10, -28)
-
-[node name="sprite_tween_composer" type="Node" parent="AnimatedSprite2D2" unique_id=1247063452]
-script = ExtResource("306_ydxku")
-metadata/_custom_type_script = "uid://bepnihd7w544x"
 
 [node name="FX_player" type="AnimatedSprite2D" parent="." unique_id=1829391272]
 unique_name_in_owner = true
@@ -1486,20 +1494,18 @@ position = Vector2(40, -20)
 shape = SubResource("RectangleShape2D_7l484")
 
 [node name="Raycasts" type="Node2D" parent="." unique_id=945174928]
+position = Vector2(0, -30)
+script = ExtResource("312_sgi41")
 
 [node name="chest_ray" type="RayCast2D" parent="Raycasts" unique_id=1200251650]
 unique_name_in_owner = true
-position = Vector2(6, -22)
-target_position = Vector2(50, 0)
+position = Vector2(2.9999993, 7.9999995)
+target_position = Vector2(10, 0)
 
 [node name="head_ray" type="RayCast2D" parent="Raycasts" unique_id=497064185]
 unique_name_in_owner = true
-position = Vector2(4, -38)
-target_position = Vector2(50, 0)
+position = Vector2(2.9999993, -8)
+target_position = Vector2(10, 0)
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=900225904]
 position = Vector2(22, -50)
-
-[node name="player_tween_composer" type="Node" parent="." unique_id=1692933240]
-script = ExtResource("306_ydxku")
-metadata/_custom_type_script = "uid://bepnihd7w544x"

@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 @onready var fx_player: AnimatedSprite2D = %FX_player
 @onready var ui: CanvasLayer = $UI
+@onready var raycasts: Node2D = $Raycasts
 
 var facing_left : bool = false
 var is_falling  : bool = false
@@ -35,14 +36,15 @@ func _physics_process(delta: float) -> void:
 
 # ── Gravity (called by airborne states) ──────────────────────
 func apply_gravity(delta: float) -> void:
-	if is_on_floor():
+	if is_on_floor() or PlayerData.movement_locked:
 		return
-	var scale: float
+
+	var _scale: float
 	if velocity.y < 0.0 and Input.is_action_pressed("jump"):
-		scale = PlayerData.JUMP_HOLD_GRAV_SCALE
+		_scale = PlayerData.JUMP_HOLD_GRAV_SCALE
 	else:
-		scale = PlayerData.FALL_GRAV_SCALE
-	velocity.y += get_gravity().y * scale * delta
+		_scale = PlayerData.FALL_GRAV_SCALE
+	velocity.y += get_gravity().y * _scale * delta
 
 # ── Horizontal movement (called by ground + air states) ──────
 func apply_horizontal(delta: float, speed: float) -> void:
@@ -53,6 +55,7 @@ func apply_horizontal(delta: float, speed: float) -> void:
 		sprite.flip_h = dir < 0.0
 		facing_left = sprite.flip_h 
 		hitbox.change_face(facing_left)
+		raycasts.flip_rays(facing_left)
 		velocity.x = move_toward(
 			velocity.x,
 			dir * speed,

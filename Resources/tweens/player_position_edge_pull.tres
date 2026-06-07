@@ -10,7 +10,7 @@ script = ExtResource("3_3qe7h")
 easing = 2
 send_triggers = Array[String]([""])
 property_name = "position"
-target_value = Vector3(22, -50, 0)
+target_value = Vector3(21, -35, 0)
 metadata/_custom_type_script = "uid://bq7aba2n0qrym"
 
 [sub_resource type="Resource" id="Resource_31d85"]
@@ -26,4 +26,5 @@ script = ExtResource("1_6c2qc")
 tween_steps = SubResource("Resource_31d85")
 tween_duration = 0.5
 loop = false
+persist_tween_information = true
 metadata/_custom_type_script = "uid://daxe4s6rqjw57"

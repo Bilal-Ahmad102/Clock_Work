@@ -22,7 +22,7 @@ func _exit() -> void:
 func _on_animation_finished() -> void:
 	get_root().dispatch("idle")
 	get_root().previous_state = self
-
+@warning_ignore("unused_parameter")
 func _update(delta: float) -> void:
 	if !get_root().input_for_shield_block() and !request_for_idle:
 		request_for_idle = true

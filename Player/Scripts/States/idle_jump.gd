@@ -50,7 +50,6 @@ func _update(delta: float) -> void:
 	_player.apply_gravity(delta)
 	get_root().check_for_edge_grab()
 	var falling := _player.velocity.y >= 0
-	#print(_player.sprite.frame," : ",_player.velocity.y ," and ",falling ," and ",  is_on_fall ," and ", is_on_rise)
 
 	if falling and not is_on_fall and is_on_rise:
 		is_on_fall = true
@@ -84,7 +83,6 @@ func play_anim_looped(start_frame: int, end_frame: int) -> void:
 
 func _on_frame_changed(start_frame: int, end_frame: int) -> void:
 	if _player.sprite.frame > end_frame:
-		print("frame: ",_player.sprite.frame, " end_frame : ",end_frame)
 		_player.sprite.frame = start_frame
 
 
