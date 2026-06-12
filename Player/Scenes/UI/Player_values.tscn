@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://ck76uh7i3xmoe"]
 
-[ext_resource type="Shader" uid="uid://5e70bcunx0g1" path="res://Player/Scripts/mana_juice.gdshader" id="1_35fe3"]
+[ext_resource type="Shader" uid="uid://5e70bcunx0g1" path="res://Player/Scripts/Shaders/mana_juice.gdshader" id="1_35fe3"]
 [ext_resource type="Texture2D" uid="uid://cr0vucv1x5622" path="res://Assets/Status_v_Free/Portrait.png" id="1_leok0"]
 [ext_resource type="Texture2D" uid="uid://cwb40kw8rk8ac" path="res://Assets/Status_v_Free/ManaBar_1.png" id="2_35fe3"]
 [ext_resource type="Texture2D" uid="uid://ikgug82njxew" path="res://Assets/Status_v_Free/Portrait/JoannaDarcIII.png" id="2_ji0ai"]
 [ext_resource type="Script" uid="uid://bcue4ysm04at" path="res://Player/Scripts/UI/mana_juice.gd" id="3_2dqgf"]
+[ext_resource type="Shader" uid="uid://b7m11enjebtg5" path="res://Player/Scripts/Shaders/health_juice.gdshader" id="8_t63cc"]
 [ext_resource type="Texture2D" uid="uid://dj08xhdxdqqpf" path="res://Assets/Status_v_Free/Stamina.png" id="11_2dqgf"]
-[ext_resource type="Shader" uid="uid://benrjkxje4ufi" path="res://Player/Scripts/stamina_juice.gdshader" id="12_t63cc"]
+[ext_resource type="Shader" uid="uid://benrjkxje4ufi" path="res://Player/Scripts/Shaders/stamina_juice.gdshader" id="12_t63cc"]
 [ext_resource type="Texture2D" uid="uid://v4bdljy51667" path="res://Assets/Status_v_Free/ManaBar.png" id="13_348r8"]
 [ext_resource type="Texture2D" uid="uid://bab1duvws1pkh" path="res://Assets/Status_v_Free/Stamina-1.png (1).png" id="13_t63cc"]
 [ext_resource type="Script" uid="uid://b3bnn8k1b6xbd" path="res://Player/Scripts/UI/stamina_juice.gd" id="14_348r8"]
@@ -17,6 +18,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_35fe3"]
 shader = ExtResource("1_35fe3")
 shader_parameter/mana = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t63cc"]
+shader = ExtResource("8_t63cc")
+shader_parameter/health = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pa8vo"]
 shader = ExtResource("1_35fe3")
@@ -107,7 +112,7 @@ offset_bottom = 34.0
 
 [node name="health_juice" type="Sprite2D" parent="health_bar" unique_id=2060609227]
 texture_filter = 1
-material = SubResource("ShaderMaterial_pa8vo")
+material = SubResource("ShaderMaterial_t63cc")
 texture = ExtResource("16_27wrm")
 region_rect = Rect2(10, 15, 46, 12)
 script = ExtResource("15_bf7kq")

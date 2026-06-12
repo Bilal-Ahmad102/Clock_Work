@@ -14,7 +14,7 @@ func _enter() -> void:
 func _on_combo_frame_changed() -> void:
 	match _player.sprite.frame:
 		# hit frames for each combo stage ; adjust to your spritesheet
-		4,5,6,7: hitbox._activate_hitbox(PlayerData.MAGIC_HEAVY_ATTACK_DAMAGE)
+		4,5,6,7: hitbox._activate_hitbox(PlayerData.SPRINT_ATTACK_DAMAGE , self.name)
 		_:                       hitbox._deactivate_hitbox()
 
 func _exit() -> void:

@@ -13,11 +13,10 @@ func _enter() -> void:
 func _on_combo_frame_changed() -> void:
 	match _player.sprite.frame:
 		# hit frames for each combo stage ; adjust to your spritesheet
-		7,8,9,10,11:  hitbox._activate_hitbox(PlayerData.HEAVY_ATTACK_DAMAGE)
+		7:  hitbox._activate_hitbox(PlayerData.HEAVY_ATTACK_DAMAGE,self.name)
 		_:            hitbox._deactivate_hitbox()
 
-func _exit() -> void:	
-
+func _exit() -> void:
 	if _player.sprite.frame_changed.is_connected(_on_combo_frame_changed):
 		_player.sprite.frame_changed.disconnect(_on_combo_frame_changed)
 

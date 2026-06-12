@@ -1,7 +1,7 @@
 extends Node
 
 
-# ── Maria's Scores ──────────────────────────────────────────
+# ── Maria's Scores ──────────────────────────────────────────	
 var authority  : float = 0.0
 var presence   : float = 0.0
 var influence  : float = 0.0
@@ -62,6 +62,7 @@ const SPRINT_ATTACK_DAMAGE  := 10.0
 
 const HEAVY_ATTACK_DAMAGE  := 32.0
 const MAGIC_HEAVY_ATTACK_DAMAGE  := 60.0
+const MAGIC_DASH_ATTACK_DAMAGE  := 40.0
 
 
 # ── Runtime state ────────────────────────────────────────────
@@ -140,6 +141,27 @@ func regen_mana(delta: float) -> void:
 		return
 	mana = min(MAX_MANA, mana + MANA_REGEN_RATE * delta)
 	mana_changed.emit(mana, MAX_MANA)
+# ── Health helpers ────────────────────────────────────────────
+func take_damage(amount: float) -> void:
+	if is_invincible:
+		return
+	health = max(0.0, health - amount)
+	health_regen_timer = HEALTH_REGEN_DELAY
+	health_changed.emit(health, MAX_HEALTH)
+
+func heal(amount: float) -> void:
+	health = min(MAX_HEALTH, health + amount)
+	health_changed.emit(health, MAX_HEALTH)
+
+func regen_health(delta: float) -> void:
+	if health >= MAX_HEALTH:
+		return
+	if health_regen_timer > 0.0:
+		health_regen_timer -= delta
+		return
+	health = min(MAX_HEALTH, health + HEALTH_REGEN_RATE * delta)
+	health_changed.emit(health, MAX_HEALTH)
+
 # ── Tick helpers ──────────────────────────────────────────────
 func tick_invincibility(delta: float) -> void:
 	if invincibility_timer > 0.0:

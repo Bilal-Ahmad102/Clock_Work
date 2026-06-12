@@ -15,6 +15,7 @@ var player: CharacterBody2D
 var player_in_attack_zone: bool =  false
 
 func _ready() -> void:
+	
 	_connect_signals()
 func _connect_signals():
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
@@ -24,7 +25,8 @@ func _connect_signals():
 	attack_zone.body_exited.connect(_on_attack_zone_body_exited)
 
 func is_player_detected():
-	if player: return true
+	if player:
+		return true
 	else: return null
 
 func _on_detection_area_body_exited(body:Node2D):
@@ -34,6 +36,7 @@ func _on_detection_area_body_exited(body:Node2D):
 func _on_detection_area_body_entered(body:Node2D):
 	if body.is_in_group("Player"):
 		player = body
+		
 func _on_attack_zone_body_exited(body:Node2D):
 	if body.is_in_group("Player"):
 		player_in_attack_zone = false

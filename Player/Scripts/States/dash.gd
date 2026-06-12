@@ -73,12 +73,3 @@ func _end_dash() -> void:
 		get_root().dispatch(&"fall")
 	elif get_root().previous_state == get_root().walk:
 		get_root().dispatch(&"walk")
-
-	# Land on the right state after dash ends
-	#if not _player.is_on_floor():
-		#get_root().dispatch(&"fall")
-	#elif Input.get_axis("move_left", "move_right") != 0.0:
-		#get_root().dispatch(&"walk")
-	#else:
-		#_player.play_anim(&"end_dash_idle")
-		

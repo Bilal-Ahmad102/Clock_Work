@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 PlayerData="*uid://falui2d7uov3"
 EnemyData="*uid://yeafsydqs6h2"
+Audience="*uid://cq6tt2w6lnxrq"
+Captain="*uid://ga55yxdgcghb"
 
 [display]
 

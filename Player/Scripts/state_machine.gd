@@ -16,6 +16,7 @@ extends LimboHSM
 @onready var heavy_atk: LimboState = $heavy_atk
 @onready var idle_jump: LimboState = $idle_jump
 @onready var edge_grab: LimboState = $edge_grab
+@onready var hurt: LimboState = $hurt
 
 @onready var magic_dash_atk: LimboState = $magic_dash_atk
 @onready var magic_heavy_atk: LimboState = $magic_heavy_atk
@@ -55,13 +56,13 @@ func _on_animation_finished():
 
 func fill_state_to_states_dictionary() -> void:
 	state_to_states_transition = {
-		idle:             [run, walk, dash, fall, idle_jump, combo_atk, 
+		idle:             [run, walk, dash, fall, idle_jump,hurt, combo_atk, 
 						   heavy_atk, shield_block,parry,magic_dash_atk,magic_heavy_atk],
-		walk:             [run, dash, fall, combo_atk, heavy_atk, shield_block,parry],
-		run:              [jump, run, dash, fall, sprint_atk,parry],
-		jump:             [dash, fall],
+		walk:             [run, dash, fall, hurt,combo_atk, heavy_atk, shield_block,parry],
+		run:              [jump, run, dash, fall,hurt, sprint_atk,parry],
+		jump:             [dash, hurt,fall],
 		land:             [run, walk, dash, fall],
-		fall:             [land,edge_grab],
+		fall:             [land,hurt,edge_grab],
 		dash:             [run, walk, fall],
 		combo_atk:        [walk,idle],
 		sprint_atk:       [run],
@@ -70,8 +71,9 @@ func fill_state_to_states_dictionary() -> void:
 		parry :           [shield_block],
 		magic_dash_atk:   [idle],
 		magic_heavy_atk:  [idle],
-		idle_jump:        [idle,edge_grab],
-		edge_grab:        [idle]
+		idle_jump:        [idle,hurt,edge_grab],
+		edge_grab:        [idle,hurt],
+		hurt:             [idle]
 	}
 
 func _init_state_machine_():
@@ -104,6 +106,7 @@ func _get_event(to_state: LimboState) -> StringName:
 	if to_state == magic_heavy_atk:  return &"magic_heavy_atk"
 	if to_state == idle_jump:        return &"idle_jump"
 	if to_state == edge_grab:        return &"edge_grab"
+	if to_state == hurt:             return &"hurt"
 	
 	push_error("No event found for state: " + to_state.name)
 	return &""

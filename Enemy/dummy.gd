@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func take_damage(amount: float) -> void:
+	print(amount)
 	if is_hit:
 		return
 

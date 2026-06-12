@@ -58,15 +58,18 @@ func _on_animation_finished() -> void:
 func _on_combo_frame_changed() -> void:
 	match _player.sprite.frame:
 		# hit frames for each combo stage ; adjust to your spritesheet
-		19,20,21,22,23,24: _dash_hitbox._activate_hitbox(PlayerData.MAGIC_HEAVY_ATTACK_DAMAGE)
+		19,20,21,22,23,24: _dash_hitbox._activate_hitbox(PlayerData.MAGIC_DASH_ATTACK_DAMAGE, self.name)
 		_:                       _dash_hitbox._deactivate_hitbox()
 
 func _exit() -> void:
 	_player.set_collision_mask_value(2, true)  # 2 = enemy layer 
 	if _player.sprite.frame_changed.is_connected(_on_combo_frame_changed):
 		_player.sprite.frame_changed.disconnect(_on_combo_frame_changed)
+	if _player.sprite.animation_finished.is_connected(_on_animation_finished):
+		_player.sprite.animation_finished.disconnect(_on_animation_finished)
+	
 	_player.sprite.offset = Vector2(-2,-21)
-
+	_dash_hitbox.queue_free()
 	get_root().previous_state = self
 
 func _update(delta: float) -> void:

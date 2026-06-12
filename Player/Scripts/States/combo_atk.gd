@@ -23,12 +23,13 @@ func _enter() -> void:
 	_player.sprite.frame_changed.connect(_on_combo_frame_changed)
 
 func _on_combo_frame_changed() -> void:
+	#hitbox.record_atk(self.name + "_3")
 	match _player.sprite.frame:
 		# hit frames for each combo stage ; adjust to your spritesheet
-		4,6,7,8:            hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_1)
-		11,12,13,14:        hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_2)
-		18,19,20,21,22,23:  hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_3)
-		_:                  hitbox._deactivate_hitbox()
+		4:  hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_1, self.name+"_1")
+		11: hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_2, self.name+"_2")
+		18: hitbox._activate_hitbox(PlayerData.LIGHT_ATTACK_DAMAGE_COMBO_3, self.name+"_3")
+		_:  hitbox._deactivate_hitbox()
 
 func _exit() -> void:
 	combo_atk = 0

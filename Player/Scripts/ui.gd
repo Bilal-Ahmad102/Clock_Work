@@ -61,7 +61,14 @@ func _process(_delta: float) -> void:
 	elif Input.is_action_just_released("magic"):
 		magic_mode = false
 		_refresh_icons(state_machine.get_active_state())
-
+	debug_values()
+func debug_values() -> void:
+	var txt := "\nbrutality %.1f" % Audience.brutality
+	txt += "\nrestraint %.1f" % Audience.restraint
+	txt += "\nprecision %.1f" % Audience.precision
+	txt += "\nhesitation %.1f" % Audience.hesitation
+	txt += "\nrepetition %.1f" % Audience.repetition
+	%values_label.text = txt
 func _on_state_changed(_previous: LimboState, _next: LimboState) -> void:
 	_refresh_icons(state_machine.get_active_state())
 

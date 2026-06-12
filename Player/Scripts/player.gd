@@ -116,3 +116,15 @@ func set_movement_locked(locked: bool) -> void:
 func full_stop_movement(value :bool ):
 	if value:
 		velocity = Vector2.ZERO
+
+func take_damage(amount: float):
+	match state_machine.get_active_state():
+		state_machine.shield_block:
+			if !%shield_block.block_attack():
+				state_machine.dispatch(&"hurt")
+				PlayerData.take_damage(amount)
+		state_machine.parry:
+			pass
+		_:
+			state_machine.dispatch(&"hurt")
+			PlayerData.take_damage(amount)
