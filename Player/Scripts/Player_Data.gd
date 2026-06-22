@@ -10,7 +10,7 @@ var resolve    : float = 0.0
 
 
 # ── Movement config ──────────────────────────────────────────
-const WALK_SPEED       := 175.0
+const WALK_SPEED       := 100.0
 const RUN_SPEED        := 350.0
 const ACCELERATION     := 1800.0
 const DECELERATION     := 2200.0

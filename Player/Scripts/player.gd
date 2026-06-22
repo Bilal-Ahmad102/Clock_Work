@@ -123,8 +123,10 @@ func take_damage(amount: float):
 			if !%shield_block.block_attack():
 				state_machine.dispatch(&"hurt")
 				PlayerData.take_damage(amount)
-		state_machine.parry:
-			pass
 		_:
 			state_machine.dispatch(&"hurt")
 			PlayerData.take_damage(amount)
+func give_parry_window():
+	if state_machine.get_active_state() == state_machine.parry:
+		if %parry.do_parry():
+			Captain.damage_back_attacking_vessel(5)

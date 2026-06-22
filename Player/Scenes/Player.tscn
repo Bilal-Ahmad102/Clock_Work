@@ -695,7 +695,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"full_walk",
-"speed": 15.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1444,7 +1444,7 @@ shape = SubResource("CapsuleShape2D_0qu43")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=516940414]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_on2vx")
-animation = &"shield_block_end"
+animation = &"full_walk"
 autoplay = "idle"
 offset = Vector2(-2, -21)
 
@@ -1504,6 +1504,7 @@ unique_name_in_owner = true
 script = ExtResource("181_mram8")
 
 [node name="parry" type="LimboState" parent="state_machine" unique_id=1579341714]
+unique_name_in_owner = true
 script = ExtResource("205_agdf1")
 
 [node name="edge_grab" type="LimboState" parent="state_machine" unique_id=286329522]

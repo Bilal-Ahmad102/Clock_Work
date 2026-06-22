@@ -14,7 +14,7 @@ func _update(delta: float) -> void:
 		get_root().dispatch(&"idle")
 		return
 	var dir = (_enemy.player.global_position - _enemy.global_position).normalized()
-	_enemy.velocity.x = dir.x * EnemyData.MOVE_SPEED
+	_enemy.velocity.x = dir.x * _enemy.move_speed
 	_enemy.face_player()
 	if _enemy.player_in_attack_zone:
 		get_root().dispatch(&"attack")

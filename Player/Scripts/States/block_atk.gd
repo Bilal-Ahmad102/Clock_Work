@@ -46,10 +46,11 @@ func _update(delta: float) -> void:
 
 func call_transition_inputs():
 	get_root().input_for_parry()
-
+	
 func block_attack():
 	if sprite.animation == &"shield_blocking":
 		play(&"shield_atk_block")
+		Audience.record_restrained_action()
 		return true
 	else:
 		return false

@@ -10,7 +10,7 @@ func _setup() -> void:
 func _enter() -> void:
 	_enemy.sprite.play("idle")
 	_enemy.velocity.x = 0.0
-	_timer = EnemyData.RECOVER_DURATION
+	_timer = _enemy.recover_duration
 
 func _exit() -> void:
 	get_root().previous_state = self

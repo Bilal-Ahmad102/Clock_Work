@@ -33,11 +33,11 @@ const HESITATION_TO_POISE : float = 0.02   # her hesitation steadies the role a 
 
 var _pressure_timer : float = 0.0
 
-func _process(delta: float) -> void:
-	_pressure_timer += delta
-	if _pressure_timer >= PRESSURE_INTERVAL:
-		_pressure_timer = 0.0
-		_apply_pressure_to_captain()
+#func _process(delta: float) -> void:
+	#_pressure_timer += delta
+	#if _pressure_timer >= PRESSURE_INTERVAL:
+		#_pressure_timer = 0.0
+		#_apply_pressure_to_captain()
 
 # Recording Marla's behavior. Call these from her combat verbs.
 func record_brutal_hit(amount: float = 1.0) -> void:
@@ -70,9 +70,10 @@ func record_repeat_attack(attack_id: StringName) -> void:
 # Pushes accumulated Marla patterns onto the active Captain.
 # This is the core of the clarification: memory affects Captain metrics directly.
 func _apply_pressure_to_captain() -> void:
+	print("APPLY PRessure")
 	if not Captain.is_active():
+		print("APPLY PRessure end")
 		return
-
 	Captain.pressure_poise(-brutality * BRUTALITY_TO_POISE)
 	Captain.pressure_poise(hesitation * HESITATION_TO_POISE)
 	Captain.pressure_integrity(-precision * PRECISION_TO_INTEG)

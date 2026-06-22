@@ -20,7 +20,7 @@ var volatility      : float = 0.0     # erratic behavior multiplier, rises per s
 
 const MAX_RECASTS          : int = 5
 var available_vessels      : Array[StringName] = []
-
+var attaking_vessel        : CharacterBody2D = null
 
 const SCAR_POISE_LOSS      : float = 15.0
 const SCAR_INTEGRITY_LOSS  : float = 10.0
@@ -65,13 +65,13 @@ func apply_role_scar() -> void:
 	poise           = clamp(poise          - SCAR_POISE_LOSS,      0.0, 100.0)
 	role_integrity  = clamp(role_integrity - SCAR_INTEGRITY_LOSS,  0.0, 100.0)
 	volatility      = clamp(volatility     + SCAR_VOLATILITY_GAIN, 0.0, 100.0)
-
+			
 func check_role_invalidation() -> bool:
 	var repeated_role_breaks : bool = recast_count >= MAX_RECASTS
 	var audience_abandoned   : bool = audience_favor <= 0.0
 	var no_viable_vessels    : bool = recast_count >= available_vessels.size()
-	var narrative_refused    : bool = PlayerData.path_state == &"REJECTION" and role_integrity <= 0.0
-	return repeated_role_breaks or audience_abandoned or no_viable_vessels or narrative_refused
+	#var narrative_refused    : bool = PlayerData.path_state == &"REJECTION" and role_integrity <= 0.0
+	return repeated_role_breaks or audience_abandoned or no_viable_vessels #or narrative_refused
 
 func _recast_into_new_vessel() -> void:
 	form = 100.0   # new body, full Form. Poise and Integrity stay scarred.
@@ -88,5 +88,11 @@ func pressure_integrity(amount: float) -> void:
 	metrics_changed.emit()
 
 func pressure_favor(amount: float) -> void:
+	print("favor amount : ", amount)
 	audience_favor = clamp(audience_favor + amount, 0.0, 100.0)
 	metrics_changed.emit()
+
+func damage_back_attacking_vessel(amount:int):
+	if attaking_vessel:
+		print("TAKE DAMAGE ",amount)
+		attaking_vessel.take_damage(amount)

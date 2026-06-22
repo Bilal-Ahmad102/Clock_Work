@@ -6,8 +6,8 @@ func _setup() -> void:
 	_player = agent  # agent = the CharacterBody2D passed to hsm.initialize()
 
 func _enter() -> void:
-	if !agent.facing_left: _player.sprite.flip_h = true
-	else: _player.sprite.flip_h = false
+	if !agent.facing_left: _player.sprite.flip_h = false
+	else: _player.sprite.flip_h = true
 
 	_player.sprite.offset = Vector2(-2,-31)
 	_player.play_anim(&"parry")
@@ -25,3 +25,8 @@ func _on_animation_finished() -> void:
 		get_root().dispatch(&"shield_block")
 	else:
 		get_root().dispatch(&"idle")
+
+func do_parry() -> bool:
+	Audience.record_restrained_action()
+	Audience.record_precise_hit(.5)
+	return true

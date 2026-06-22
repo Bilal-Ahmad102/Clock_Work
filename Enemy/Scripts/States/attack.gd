@@ -10,7 +10,7 @@ func _setup() -> void:
 
 func _enter() -> void:
 	_enemy.velocity.x = 0.0
-	_timer    = _enemy.attack_cooldown
+	_timer = _enemy.next_attack_cooldown()
 	_attacked = false
 	_enemy.face_player()
 	sprite = _enemy.sprite
@@ -21,18 +21,23 @@ func _on_atk_frame_changed() -> void:
 	if sprite.frame == 3:
 		if _enemy.player_in_attack_zone and _enemy.player:
 			_enemy.player.take_damage(20)
+	if sprite.frame <= 3:
+		if _enemy.player:
+			_enemy.player.give_parry_window()
+			Captain.attaking_vessel = agent
+
 	
 func _do_attack() -> void:
 	_attacked = true
-	# randomly pick light or heavy
-	if randf() < 0.6:
-		sprite.play("light_atk")
-	else:
+	if randf() < _enemy.heavy_chance:
 		sprite.play("heavy_atk")
+	else:
+		sprite.play("light_atk")
 
 func _exit() -> void:
 	if sprite.frame_changed.is_connected(_on_atk_frame_changed):
 		sprite.frame_changed.disconnect(_on_atk_frame_changed)
+	Captain.attaking_vessel = null
 	get_root().previous_state = self
 
 func _update(delta: float) -> void:

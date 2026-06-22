@@ -1,5 +1,6 @@
-Control
 Label
+Control
+CanvasLayer
 TweenComposer
 Sprite2D
 Marker2D

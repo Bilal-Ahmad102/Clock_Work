@@ -4,22 +4,22 @@ extends LimboState
 func _enter() -> void:
 	agent.sprite.play("death")
 	await agent.sprite.animation_finished
-	#agent.hp = EnemyData.MAX_HP
-	print("OK")
-	#_apply_role()
-	#get_root().dispatch(&"idle")
 
-func _apply_role() -> void:
-	match EnemyData.current_role:
-		EnemyData.CastRole.DEFENSIVE:
-			# enemy got more defensive ; Marla was too aggressive
-			agent.block_chance    = 0.6
-			agent.attack_cooldown = EnemyData.ATTACK_COOLDOWN * 1.5
-		EnemyData.CastRole.AGGRESSIVE:
-			# enemy got more aggressive ; Marla was too defensive
-			agent.block_chance    = 0.05
-			agent.attack_cooldown = EnemyData.ATTACK_COOLDOWN * 0.6
-		EnemyData.CastRole.NEUTRAL:
-			agent.block_chance    = 0.3
-			agent.attack_cooldown = EnemyData.ATTACK_COOLDOWN
-	EnemyData.reset_scores()
+	# capture spawn data before the body is freed
+	var parent: Node      = agent.get_parent()
+	var spawn_pos: Vector2 = agent.global_position
+	var scene_path: String = agent.scene_file_path
+
+	# the Captain already decided recast vs true death during take_damage.
+	# is_active() is true only if the role recast (form restored, role kept).
+	# on true death the role is cleared, so we do not respawn. the stage goes quiet.
+	print(Captain.is_active() ," and ", scene_path != "")
+	if Captain.is_active() and scene_path != "":
+		_respawn_vessel(parent, spawn_pos, scene_path)
+
+	agent.queue_free()
+
+func _respawn_vessel(parent: Node, spawn_pos: Vector2, scene_path: String) -> void:
+	var vessel: Node2D = load(scene_path).instantiate()
+	parent.call_deferred("add_child", vessel)
+	vessel.set_deferred("global_position", spawn_pos)

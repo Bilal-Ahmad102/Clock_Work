@@ -16,7 +16,7 @@ func _enter() -> void:
 	# Spend stamina
 	PlayerData.spend_mana(PlayerData.MAGIC_DASH_MANA_COST)
 	_player.sprite.frame_changed.connect(_on_combo_frame_changed)
-
+	_player.sprite.animation_finished.connect(_on_animation_finished)
 func _on_combo_frame_changed() -> void:
 	match _player.sprite.frame:
 		# hit frames for each combo stage ; adjust to your spritesheet
@@ -26,6 +26,8 @@ func _on_combo_frame_changed() -> void:
 func _exit() -> void:
 	if _player.sprite.frame_changed.is_connected(_on_combo_frame_changed):
 		_player.sprite.frame_changed.disconnect(_on_combo_frame_changed)
+	if _player.sprite.animation_finished.is_connected(_on_animation_finished):
+		_player.sprite.animation_finished.disconnect(_on_animation_finished)
 	_player.full_stop_movement(false)
 	_player.sprite.offset = Vector2(-2,-21)
 
@@ -38,3 +40,5 @@ func _on_animation_finished() -> void:
 	elif !get_root().input_for_walk() \
 		and get_root().previous_state == get_root().walk:
 		get_root().dispatch(&"walk")
+
+	get_root().dispatch(&"idle")
