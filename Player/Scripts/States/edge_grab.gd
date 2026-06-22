@@ -24,6 +24,11 @@ func _enter() -> void:
 	sprite = _player.sprite
 	sprite.play(to_edge_grab)
 	current_animation = to_edge_grab
+
+	if _player.facing_left :
+		_player.global_position = get_root().grabbed_edge.find_child("player_pos_r").global_position
+	else:
+		_player.global_position = get_root().grabbed_edge.find_child("player_pos_l").global_position
 	_player.full_stop_movement(true)
 	if !sprite.animation_finished.is_connected(_on_animation_finished):
 		sprite.animation_finished.connect(_on_animation_finished)
@@ -45,9 +50,7 @@ func _exit() -> void:
 	get_root().previous_state = self
 	pulling = false
 	falling = false
-	
-	#player_tween_composer.reset_tween()
-	#sprite_tween_composer.reset_tween()
+	get_root().grabbed_edge = null
 	
 	sprite.animation_finished.disconnect(_on_animation_finished)
 	if player_tween: player_tween.queue_free()

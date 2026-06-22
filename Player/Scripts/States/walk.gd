@@ -60,3 +60,4 @@ func call_transition_inputs():
 	get_root().input_for_shield_block()
 	get_root().input_for_combo_light_atk()
 	get_root().input_for_heavy_atk()
+	get_root().input_for_jump()

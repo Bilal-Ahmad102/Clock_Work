@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ClockWork"
-run/main_scene="uid://ctvvovkefe8jc"
+run/main_scene="uid://cgfe505j6m3dm"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,15 +21,21 @@ PlayerData="*uid://falui2d7uov3"
 EnemyData="*uid://yeafsydqs6h2"
 Audience="*uid://cq6tt2w6lnxrq"
 Captain="*uid://ga55yxdgcghb"
+PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [display]
 
 window/size/mode=3
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+
 [global_group]
 
 Player=""
+Grabable_Edges=""
 
 [input]
 
@@ -101,6 +107,7 @@ magic={
 [layer_names]
 
 2d_physics/layer_2="Enemies"
+2d_physics/layer_3="grabable_sedges"
 
 [physics]
 

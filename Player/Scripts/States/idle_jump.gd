@@ -48,6 +48,8 @@ func _exit() -> void:
 
 func _update(delta: float) -> void:
 	_player.apply_gravity(delta)
+	_player.apply_horizontal(delta, PlayerData.WALK_SPEED)  # air speed
+
 	get_root().check_for_edge_grab()
 	var falling := _player.velocity.y >= 0
 

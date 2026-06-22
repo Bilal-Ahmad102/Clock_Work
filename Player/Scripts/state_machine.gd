@@ -34,7 +34,7 @@ var shield_hold_time := 0.0
 const SHIELD_HOLD_THRESHOLD := 0.2 # seconds
 
 var state_to_states_transition : Dictionary 
-
+var grabbed_edge : StaticBody2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -58,7 +58,7 @@ func fill_state_to_states_dictionary() -> void:
 	state_to_states_transition = {
 		idle:             [run, walk, dash, fall, idle_jump,hurt, combo_atk, 
 						   heavy_atk, shield_block,parry,magic_dash_atk,magic_heavy_atk],
-		walk:             [run, dash, fall, hurt,combo_atk, heavy_atk, shield_block,parry],
+		walk:             [run, dash,idle_jump, fall, hurt,combo_atk, heavy_atk, shield_block,parry],
 		run:              [jump, run, dash, fall,hurt, sprint_atk,parry],
 		jump:             [dash, hurt,fall],
 		land:             [run, walk, dash, fall],
@@ -142,13 +142,16 @@ func input_for_walk():
 
 func input_for_jump():
 	if PlayerData.jump_buffer_timer > 0.0 or Input.is_action_just_pressed("jump"):
-		if get_active_state() == idle:
+		if get_active_state() == idle or get_active_state() == walk :
 			dispatch(&"idle_jump")
 		else:
 			dispatch(&"jump")
 
 func check_for_edge_grab():
 	if chest_ray.is_colliding() and !head_ray.is_colliding():
+		print(chest_ray.get_collider())
+		if !chest_ray.get_collider().is_in_group("Grabable_Edges"): return
+		grabbed_edge = chest_ray.get_collider()
 		dispatch(&"edge_grab")
 		
 func input_for_dash():
