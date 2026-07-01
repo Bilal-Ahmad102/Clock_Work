@@ -58,11 +58,10 @@ func fill_state_to_states_dictionary() -> void:
 	state_to_states_transition = {
 		idle:             [run, walk, dash, fall, idle_jump,hurt, combo_atk, 
 						   heavy_atk, shield_block,parry,magic_dash_atk,magic_heavy_atk],
-		walk:             [run, dash,idle_jump, fall, hurt,combo_atk, heavy_atk, shield_block,parry],
-		run:              [jump, run, dash, fall,hurt, sprint_atk,parry],
+		run:              [idle_jump, run, dash, fall,hurt, sprint_atk,parry],
 		jump:             [dash, hurt,fall],
 		land:             [run, walk, dash, fall],
-		fall:             [land,hurt,edge_grab],
+		fall:             [land,dash,hurt,edge_grab],
 		dash:             [run, walk, fall],
 		combo_atk:        [walk,idle],
 		sprint_atk:       [run],
@@ -71,7 +70,7 @@ func fill_state_to_states_dictionary() -> void:
 		parry :           [shield_block],
 		magic_dash_atk:   [idle],
 		magic_heavy_atk:  [idle],
-		idle_jump:        [idle,hurt,edge_grab],
+		idle_jump:        [idle,dash,hurt,edge_grab],
 		edge_grab:        [idle,hurt],
 		hurt:             [idle]
 	}
@@ -125,8 +124,7 @@ func input_for_heavy_atk():
 func input_for_run():
 	var dir := Input.get_axis("move_left", "move_right")
 	if dir != 0.0:
-		if Input.is_action_pressed("run"):
-			dispatch(&"run")
+		dispatch(&"run")
 
 func input_for_idle():
 	var dir := Input.get_axis("move_left", "move_right")
@@ -142,10 +140,7 @@ func input_for_walk():
 
 func input_for_jump():
 	if PlayerData.jump_buffer_timer > 0.0 or Input.is_action_just_pressed("jump"):
-		if get_active_state() == idle or get_active_state() == walk :
-			dispatch(&"idle_jump")
-		else:
-			dispatch(&"jump")
+		dispatch(&"idle_jump")
 
 func check_for_edge_grab():
 	if chest_ray.is_colliding() and !head_ray.is_colliding():

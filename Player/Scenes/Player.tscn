@@ -36,16 +36,13 @@
 [ext_resource type="Texture2D" uid="uid://d1su26r5bntj7" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Dash/Dashing/Dashing2.png" id="11_nilmx"]
 [ext_resource type="Texture2D" uid="uid://cayf5660o8xdc" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Attacks/ComboAtk/ComboAtk10.png" id="11_sv5x0"]
 [ext_resource type="Texture2D" uid="uid://b1l7gqyyefhgu" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Attacks/ComboAtk/ComboAtk11.png" id="12_ee8o8"]
-[ext_resource type="Texture2D" uid="uid://8ehikoi1oq52" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/SprintJump/SFalling/SFalling1.png" id="12_p2p8h"]
 [ext_resource type="Script" uid="uid://bpwuydia46wbb" path="res://Player/Scripts/States/idle.gd" id="12_p5bkw"]
 [ext_resource type="Texture2D" uid="uid://8wjfy3fust4g" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Dash/Dashing/Dashing3.png" id="12_tst4v"]
-[ext_resource type="Texture2D" uid="uid://cy72q52p1p7hb" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/SprintJump/SFalling/SFalling2.png" id="13_6l8wa"]
 [ext_resource type="Texture2D" uid="uid://kcsj4g0tg47x" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Attacks/ComboAtk/ComboAtk12.png" id="13_nxq8v"]
 [ext_resource type="Script" uid="uid://bl1cffqybr8cw" path="res://Player/Scripts/States/run.gd" id="13_q3u0r"]
 [ext_resource type="Texture2D" uid="uid://8fouaqojcyly" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Run/Running/Running1.png" id="14_7gs1t"]
 [ext_resource type="Script" uid="uid://dcocs5gujvd3p" path="res://Player/Scripts/States/walk.gd" id="14_gt0dp"]
 [ext_resource type="Texture2D" uid="uid://c88ih1fcfs0cy" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Attacks/ComboAtk/ComboAtk13.png" id="14_nshy3"]
-[ext_resource type="Texture2D" uid="uid://c2pa3ygtq8xcd" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/SprintJump/SFalling/SFalling3.png" id="14_r08ai"]
 [ext_resource type="Texture2D" uid="uid://be60nmr8kt0jq" path="res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Attacks/ComboAtk/ComboAtk14.png" id="15_do1ul"]
 [ext_resource type="Script" uid="uid://cqrmtfb70dkxw" path="res://Player/Scripts/debug.gd" id="15_p5bkw"]
 [ext_resource type="Script" uid="uid://db0b18ga6yyad" path="res://Player/Scripts/States/jump.gd" id="15_q3u0r"]
@@ -558,17 +555,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_p2p8h")
+"texture": ExtResource("41_gj6pp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_6l8wa")
+"texture": ExtResource("42_t2or6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_r08ai")
+"texture": ExtResource("43_o3o7e")
 }],
 "loop": 1,
 "name": &"fall",
-"speed": 5.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1451,8 +1448,9 @@ shape = SubResource("CapsuleShape2D_0qu43")
 texture_filter = 3
 position = Vector2(0, 2)
 sprite_frames = SubResource("SpriteFrames_on2vx")
-animation = &"idle_jump"
+animation = &"fall"
 autoplay = "idle"
+frame_progress = 0.3123391
 offset = Vector2(-2, -21)
 
 [node name="FX_player" type="AnimatedSprite2D" parent="." unique_id=1829391272]

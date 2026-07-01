@@ -48,9 +48,11 @@ func _exit() -> void:
 
 func _update(delta: float) -> void:
 	_player.apply_gravity(delta)
-	_player.apply_horizontal(delta, PlayerData.WALK_SPEED)  # air speed
+	_player.apply_horizontal(delta, PlayerData.RUN_SPEED)  # air speed
 
 	get_root().check_for_edge_grab()
+	get_root().input_for_dash()
+
 	var falling := _player.velocity.y >= 0
 
 	if falling and not is_on_fall and is_on_rise:
@@ -60,6 +62,7 @@ func _update(delta: float) -> void:
 	if is_on_fall and _player.is_on_floor() and not is_on_land:
 		is_on_land = true
 		play_rest_animation(FRAME_LAND_START)# ─── Animation Helpers ──────────────────────────────────────────────────────────
+	
 
 func play_anim_then_loop(transition_frame: int, end_frame: int) -> void:
 	if _player.sprite.animation == ANIM_NAME:

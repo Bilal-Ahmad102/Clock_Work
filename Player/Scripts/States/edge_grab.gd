@@ -105,7 +105,7 @@ func _input(event: InputEvent) -> void:
 		sprite_tween.play_tween()
 
 		current_animation = edge_grab_pull
-	elif event.is_action_pressed("dash") and !falling:
+	elif event.is_action_pressed("dash") and !falling and !pulling:
 		falling = true
 		sprite.play(edge_grab_fall)
 		current_animation = edge_grab_fall

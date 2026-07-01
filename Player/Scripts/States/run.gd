@@ -40,7 +40,6 @@ func call_transition_inputs():
 	get_root().input_for_heavy_atk()
 	
 	
-	
 func _jump_requested() -> bool:
 	return PlayerData.jump_buffer_timer > 0.0 \
 		or Input.is_action_just_pressed("jump")

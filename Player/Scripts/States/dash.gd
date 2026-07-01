@@ -9,7 +9,10 @@ func _setup() -> void:
 	_player = agent
 
 func _enter() -> void:
-	_player.set_collision_mask_value(2, false)  # 2 = enemy layer 
+	_player.set_collision_mask_value(2, false)  # 2 = enemy layer
+	# Dash manages its own airborne motion — stop player.gd's global
+	# auto-fall check from yanking us into `fall` while dashing.
+	_player.is_falling = true
 
 	# Determine dash direction from input, fall back to sprite facing
 	var input_dir := Input.get_axis("move_left", "move_right")
@@ -34,7 +37,9 @@ func _enter() -> void:
 
 	if get_root().previous_state == get_root().idle:
 		_player.play_anim(&"to_dash_idle")
-	elif get_root().previous_state in [get_root().run,get_root().jump,get_root().walk]:
+	elif get_root().previous_state in [get_root().run,
+			get_root().fall,get_root().idle_jump]:
+		print("DASH") 
 		_player.play_anim(&"dash")
 
 
@@ -47,7 +52,8 @@ func _on_animation_finished() -> void:
 
 
 func _exit() -> void:
-	_player.set_collision_mask_value(2, true)  
+	_player.set_collision_mask_value(2, true)
+	_player.is_falling = false
 
 	get_root().previous_state = self
 
@@ -71,5 +77,5 @@ func _end_dash() -> void:
 		get_root().dispatch(&"run")
 	elif get_root().previous_state == get_root().jump:
 		get_root().dispatch(&"fall")
-	elif get_root().previous_state == get_root().walk:
-		get_root().dispatch(&"walk")
+	elif get_root().previous_state in [get_root().fall,get_root().idle_jump]:
+		get_root().dispatch(&"fall")

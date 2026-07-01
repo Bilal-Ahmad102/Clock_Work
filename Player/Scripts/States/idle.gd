@@ -36,7 +36,7 @@ func _update(delta: float) -> void:
 	call_transition_inputs()
 	
 func call_transition_inputs():
-	get_root().input_for_walk()
+	get_root().input_for_run()
 	get_root().input_for_dash()
 	get_root().input_for_parry()
 	get_root().input_for_shield_block()

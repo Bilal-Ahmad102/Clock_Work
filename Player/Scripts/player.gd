@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+
+@export var check_point : Marker2D
+
 @onready var collision: CollisionShape2D  = $CollisionShape2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var state_machine: LimboHSM = $state_machine
@@ -130,3 +133,6 @@ func give_parry_window():
 	if state_machine.get_active_state() == state_machine.parry:
 		if %parry.do_parry():
 			Captain.damage_back_attacking_vessel(5)
+
+func die():
+	self.global_position = check_point.global_position

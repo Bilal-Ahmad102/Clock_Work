@@ -25,15 +25,13 @@ func _update(delta: float) -> void:
 		get_root().dispatch(&"jump")
 		return
 
-	# Allow dash in air
-	if Input.is_action_just_pressed("dash") \
-			and PlayerData.stamina >= PlayerData.DASH_STAMINA_COST:
-		get_root().dispatch(&"dash")
-		return
+
 
 	# ── Transitions ──────────────────────────────────────────
 	if _player.is_on_floor():
 		get_root().dispatch(&"land")
+	
+	get_root().input_for_dash()
 
 func _jump_requested() -> bool:
 	return PlayerData.jump_buffer_timer > 0.0 \
