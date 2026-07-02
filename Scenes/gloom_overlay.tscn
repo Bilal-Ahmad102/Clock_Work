@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://r5j1iaptdsqo"]
+
+[ext_resource type="Shader" uid="uid://fliu4risakf4" path="res://Scripts/shaders/gloom.gdshader" id="1_gloom"]
+[ext_resource type="Script" uid="uid://dg6fg17dieojx" path="res://Scripts/gloom.gd" id="2_gloom"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gloom"]
+shader = ExtResource("1_gloom")
+shader_parameter/gloom_tint = Color(0.6067931, 0.69007236, 1, 1)
+shader_parameter/darkness = 0.4550000216125
+shader_parameter/desaturation = 0.12
+shader_parameter/vignette_strength = 0.5
+shader_parameter/light_pos = Vector2(0.5, 0.5)
+shader_parameter/viewport_size = Vector2(640, 360)
+shader_parameter/light_radius = 220.0
+shader_parameter/light_softness = 160.0
+shader_parameter/light_color = Color(0.91663986, 0.91663986, 0.9166397, 1)
+
+[node name="GloomOverlay" type="CanvasLayer" unique_id=1623701065]
+layer = 10
+
+[node name="Gloom" type="ColorRect" parent="." unique_id=1314989484]
+material = SubResource("ShaderMaterial_gloom")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_gloom")

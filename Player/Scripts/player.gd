@@ -133,6 +133,7 @@ func give_parry_window():
 	if state_machine.get_active_state() == state_machine.parry:
 		if %parry.do_parry():
 			Captain.damage_back_attacking_vessel(5)
-
+func set_checkpoint(point:Marker2D):
+	check_point = point
 func die():
 	self.global_position = check_point.global_position

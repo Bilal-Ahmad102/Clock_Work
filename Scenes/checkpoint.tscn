@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://clsp070pec5kd"]
+
+[ext_resource type="Script" uid="uid://cw87c26msswdq" path="res://Scripts/checkpoint.gd" id="1_lbcco"]
+
+[node name="checkpoint" type="Marker2D" unique_id=1413830673]
+script = ExtResource("1_lbcco")

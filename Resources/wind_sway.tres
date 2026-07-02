@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://johh7qeallva"]
+
+[ext_resource type="Shader" uid="uid://csik114k3c8aw" path="res://Scripts/shaders/foliage_wind_effects.gdshader" id="1_jbtbr"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nstqx"]
+noise_type = 2
+seed = 3
+frequency = 0.0067
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tqp63"]
+noise = SubResource("FastNoiseLite_nstqx")
+
+[resource]
+shader = ExtResource("1_jbtbr")
+shader_parameter/render_noise = false
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_tqp63")
+shader_parameter/amplitude = 0.00999999977648
+shader_parameter/time_scale = 0.1499999966472
+shader_parameter/noise_scale = 0.001
+shader_parameter/rotation_strength = 1.0
+shader_parameter/rotation_pivot = Vector2(0.5, 1)

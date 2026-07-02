@@ -1,7 +1,8 @@
+res://Scenes/
+res://Resources/
+res://Scripts/
 res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Falling/
 res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Fall/
-res://Scripts/
-res://Scenes/
 res://Assets/Map/Legacy Fantasy - Debug Map/Assets/
 res://Assets/Orc/
 res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Block/ToBlock/
@@ -12,7 +13,6 @@ res://Player/Scripts/States/
 res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/Hurt/BasicFX/
 res://Scripts/Globals/
 res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Land/FX/
-res://Resources/
 res://
 res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Full/
 res://Assets/JoannaD'ArcIII_v1.9.5/Sprites/JumpAndFall/Full/FX/

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cs1na3swabg7h"]
+
+[ext_resource type="Script" uid="uid://bt6wp4ij57p44" path="res://Scripts/input_prompt.gd" id="1_o6oot"]
+[ext_resource type="Texture2D" uid="uid://cwdt3xaomfd3s" path="res://addons/kenney_input_prompts/PlayStation Series/Default/playstation_button_color_cross_outline.png" id="1_xn1ex"]
+
+[node name="input_prompt" type="Sprite2D" unique_id=2055192270]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_xn1ex")
+script = ExtResource("1_o6oot")
+
+[node name="Label" type="Label" parent="." unique_id=1496422819]
+offset_left = -128.0
+offset_top = -72.0
+offset_right = 128.0
+offset_bottom = -27.0
+theme_override_font_sizes/font_size = 32
+text = "Jump"
+horizontal_alignment = 1
+vertical_alignment = 1

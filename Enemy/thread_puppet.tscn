@@ -167,7 +167,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cpi8s")
 }],
-"loop": false,
+"loop": 0,
 "name": &"death",
 "speed": 8.0
 }, {
@@ -190,7 +190,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fljgv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"heavy_atk",
 "speed": 8.0
 }, {
@@ -207,7 +207,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kvoqn")
 }],
-"loop": true,
+"loop": 1,
 "name": &"hurt",
 "speed": 8.0
 }, {
@@ -230,7 +230,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ddkin")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 8.0
 }, {
@@ -253,7 +253,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_370h6")
 }],
-"loop": false,
+"loop": 0,
 "name": &"light_atk",
 "speed": 8.0
 }, {
@@ -282,7 +282,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8im1k")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 8.0
 }]
@@ -396,6 +396,7 @@ show_percentage = false
 
 [node name="debug" type="Label" parent="." unique_id=170711338]
 unique_name_in_owner = true
+visible = false
 offset_left = -17.0
 offset_top = -59.0
 offset_right = 23.0
@@ -405,6 +406,7 @@ text = "Idle"
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2001473310]
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=860175957]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
