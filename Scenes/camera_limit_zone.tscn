@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ig4si75g5qw5"]
+
+[ext_resource type="Script" uid="uid://daxbxq4ts3gcg" path="res://Scripts/camera_limit_zone.gd" id="1_qubtj"]
+
+[node name="undercroft_limit_zone" type="Area2D" unique_id=2067736121 node_paths=PackedStringArray("bounds_node")]
+script = ExtResource("1_qubtj")
+bounds_node = NodePath("camera_bounds")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1567257329]
+polygon = PackedVector2Array(2820, 192, 4380, 192, 4380, 320, 2820, 320)
+
+[node name="camera_bounds" type="Polygon2D" parent="." unique_id=738275198]
+visible = false
+color = Color(1, 1, 1, 0.15)
+polygon = PackedVector2Array(2820, -228, 4380, -228, 4380, 420, 2820, 420)

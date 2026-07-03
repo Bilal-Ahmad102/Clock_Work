@@ -1,11 +1,11 @@
-Area2D
-CollisionShape2D
-Node2D
-Sprite2D
 Marker2D
+Node2D
+CollisionShape2D
+Area2D
+Camera2D
+Sprite2D
 Node
 TileMapLayer
-Camera2D
 PhantomCameraHost
 PhantomCamera2D
 Parallax2D

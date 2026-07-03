@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dgprued400vas"]
+
+[ext_resource type="Script" uid="uid://bxm0r36nk41an" path="res://Scripts/camera_focus_zone.gd" id="1_u58q3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoty3"]
+size = Vector2(122, 123)
+
+[node name="undercroft_focus_zone" type="Area2D" unique_id=2024340361 node_paths=PackedStringArray("focus_node")]
+script = ExtResource("1_u58q3")
+focus_node = NodePath("")
+focus_rate = 2.5
+focus_zoom = 0.85
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1679687486]
+position = Vector2(-0.47607422, -8.045898)
+shape = SubResource("RectangleShape2D_hoty3")
+debug_color = Color(3.8745256e-06, 0.65149146, 0.025241114, 0.41960785)

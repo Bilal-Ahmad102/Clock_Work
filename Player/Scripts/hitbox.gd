@@ -6,9 +6,8 @@ var hitbox_damage: float = 0.0
 var _hit_bodies: Array = []
 var atk_name : StringName
 
-# atk_name → behaviour reading fired when this attack lands a hit.
-# Each Callable records the pattern weight AND the repetition id.
-# atk_name → behaviour reading fired when this attack lands a hit.
+# Base atk_name → behaviour reading fired when this attack lands a hit.
+# Staged attacks (combo_atk_1/2/3) are normalized to their base name first.
 var _record_map : Dictionary = {
 	&"combo_atk":       func(): Audience.record_precise_hit(1.0),
 	&"heavy_atk":       func(): Audience.record_brutal_hit(1.5),
@@ -36,16 +35,34 @@ func _on_hitbox_body_entered(body: Node) -> void:
 	if body in _hit_bodies:
 		return
 	if body.has_method("take_damage"):
-		body.take_damage(hitbox_damage)
+		if body.is_in_group("TrainingDummy"):
+			# Training targets learn which attack hit them (finisher gates,
+			# damage thresholds) and are rehearsal only — never recorded.
+			body.take_damage(hitbox_damage, atk_name)
+		else:
+			body.take_damage(hitbox_damage)
+			_record_behaviour()
 		_hit_bodies.append(body)
-		_record_behaviour()
 
 func _record_behaviour() -> void:
-	if _record_map.has(atk_name):
-		_record_map[atk_name].call()
+	var base := _base_atk_name(atk_name)
+	if _record_map.has(base):
+		_record_map[base].call()
 	else:
 		push_warning("No Audience record mapping for atk_name: " + str(atk_name))
-	Audience.record_repeat_attack(atk_name)
+	# A staged attack is one move per chain, so only its opening stage
+	# enters the repetition window; otherwise one full combo (3 hits of
+	# the same base id) would trip the >=3-same threshold by itself.
+	if base == atk_name or String(atk_name).ends_with("_1"):
+		Audience.record_repeat_attack(base)
+
+## Strips a trailing stage suffix: "combo_atk_2" -> "combo_atk".
+func _base_atk_name(full_name: StringName) -> StringName:
+	var s := String(full_name)
+	var idx := s.rfind("_")
+	if idx > 0 and s.substr(idx + 1).is_valid_int():
+		return StringName(s.substr(0, idx))
+	return full_name
 
 func change_direction(left:bool):
 	if collision_shape_2d.position.x > 0:
