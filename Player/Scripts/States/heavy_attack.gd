@@ -27,12 +27,12 @@ func _on_animation_finished() -> void:
 	if !get_root().input_for_walk():
 		get_root().dispatch(&"idle")
 		
-	elif !get_root().input_for_walk() \
+	elif get_root().input_for_walk() \
 		and get_root().previous_state == get_root().walk:
 		get_root().dispatch(&"walk")
-		
-	
-		
+
+
+
 	get_root().previous_state = self
 
 func play_FX():

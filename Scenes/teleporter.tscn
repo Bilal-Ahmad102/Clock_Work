@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bg67cwtg6dnjp"]
+
+[ext_resource type="Script" uid="uid://ckxclq2qgxyl" path="res://Scripts/teleporter.gd" id="1_tport"]
+[ext_resource type="PackedScene" uid="uid://cs1na3swabg7h" path="res://Scenes/input_prompt.tscn" id="2_prompt"]
+[ext_resource type="Texture2D" uid="uid://c2x2qeff87nxf" path="res://addons/kenney_input_prompts/Xbox Series/Default/xbox_dpad_round_up.png" id="3_6vd6g"]
+[ext_resource type="Texture2D" uid="uid://cr8uqp3tko6bt" path="res://addons/kenney_input_prompts/Keyboard & Mouse/Double/keyboard_t_outline.png" id="3_itjrl"]
+[ext_resource type="Texture2D" uid="uid://bcyx38ghwt7a4" path="res://addons/kenney_input_prompts/PlayStation Series/Default/playstation_dpad_up_outline.png" id="5_6vd6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trig"]
+size = Vector2(80, 96)
+
+[node name="Teleporter" type="Node2D" unique_id=360514617]
+script = ExtResource("1_tport")
+
+[node name="exit_point" type="Marker2D" parent="." unique_id=794205472]
+position = Vector2(0, -40)
+
+[node name="trigger" type="Area2D" parent="." unique_id=944086633]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trigger" unique_id=2120146337]
+position = Vector2(0, -48)
+shape = SubResource("RectangleShape2D_trig")
+
+[node name="prompt" parent="." unique_id=919303479 instance=ExtResource("2_prompt")]
+position = Vector2(0, -122)
+texture = ExtResource("3_6vd6g")
+hint_text = " Teleport"
+preview_device = 1
+keyboard_texture = ExtResource("3_itjrl")
+xbox_texture = ExtResource("3_6vd6g")
+ps4_texture = ExtResource("5_6vd6g")
+text_position = Vector2(-128, -96.445)
+
+[node name="Area2D" type="Area2D" parent="prompt" unique_id=549357429]
+position = Vector2(0, -96)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="prompt/Area2D" unique_id=17070831]
+position = Vector2(0, 368)
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_trig")

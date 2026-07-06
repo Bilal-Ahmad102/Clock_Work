@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://fxxkelqoq24o"]
+
+[ext_resource type="Script" uid="uid://qqqcth0uvq8x" path="res://Scripts/falling_leaves.gd" id="1_leaves"]
+[ext_resource type="Texture2D" uid="uid://darayfstmmhge" path="res://Assets/particles/leaf_particle.png" id="2_leaftex"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_leaves"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_leaves"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(160, 4, 1)
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 36.0
+initial_velocity_max = 60.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
+gravity = Vector3(12, 18, 0)
+scale_min = 0.2
+scale_max = 0.5
+color = Color(0.11789773, 0.23301819, 0.034749873, 1)
+hue_variation_min = -0.04
+hue_variation_max = 0.04
+anim_offset_max = 1.0
+turbulence_enabled = true
+turbulence_noise_strength = 0.6
+turbulence_noise_scale = 4.0
+turbulence_influence_min = 0.006
+turbulence_influence_max = 0.024
+
+[node name="FallingLeaves" type="GPUParticles2D" unique_id=424432964]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_leaves")
+amount = 40
+texture = ExtResource("2_leaftex")
+lifetime = 6.0
+preprocess = 3.0
+visibility_rect = Rect2(-440, -32, 880, 780)
+process_material = SubResource("ParticleProcessMaterial_leaves")
+script = ExtResource("1_leaves")
+leaf_color = Color(0.11789773, 0.23301819, 0.034749873, 1)
+leaf_scale_min = 0.2
+leaf_scale_max = 0.5
+fall_speed = 60.0
+wind = 12.0
+leaves_amount = 40

@@ -14,9 +14,10 @@ signal broke(by_atk: StringName)
 ## Only the combo finisher (combo_atk_3) may land the breaking blow;
 ## any other killing hit refills the dummy instead.
 @export var require_finisher := false
-
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar: ProgressBar = $HealthBar
+enum Attack_type { COMBO_ATK, HEAVY_ATK }
+@export var atk_type: Attack_type = Attack_type.COMBO_ATK
 
 const GRAVITY := 980.0
 
@@ -38,9 +39,13 @@ func take_damage(amount: float, by_atk: StringName = &"") -> void:
 
 	health = max(0.0, health - amount)
 	health_bar.value = (health / max_health) * 100.0
-
+	var req_attack : StringName = &""
 	if health <= 0.0:
-		if require_finisher and by_atk != &"combo_atk_3":
+		match  atk_type:
+			Attack_type.COMBO_ATK: req_attack =  &"combo_atk_3"
+			Attack_type.HEAVY_ATK: req_attack =  &"heavy_atk"
+			
+		if require_finisher and by_atk != req_attack:
 			_refill()
 		elif permanent_break:
 			_break(by_atk)
