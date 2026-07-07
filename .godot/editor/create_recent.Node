@@ -1,5 +1,6 @@
 Node2D
 TileMapLayer
+TextureRect
 CollisionShape2D
 StaticBody2D
 TileMap
@@ -11,4 +12,3 @@ Marker2D
 Area2D
 Camera2D
 Node
-PhantomCameraHost

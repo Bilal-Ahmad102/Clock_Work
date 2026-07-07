@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://bveg01i8nbm70" path="res://addons/kenney_input_prompts/Keyboard & Mouse/Double/keyboard_f_outline.png" id="35_kbf"]
 [ext_resource type="Texture2D" uid="uid://ca08ucecfkfbj" path="res://addons/kenney_input_prompts/Xbox Series/Double/xbox_button_color_x_outline.png" id="36_xbx"]
 [ext_resource type="Texture2D" uid="uid://cpjrykygqrins" path="res://addons/kenney_input_prompts/PlayStation Series/Double/playstation_button_color_square_outline.png" id="38_pssq"]
+[ext_resource type="Script" uid="uid://cp2hamiqd558u" path="res://Scripts/intro_monologue.gd" id="39_mono"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bik0w"]
 texture = ExtResource("7_6ftn2")
@@ -3011,6 +3012,9 @@ max_health = 24.0
 permanent_break = true
 require_finisher = true
 atk_type = 1
+
+[node name="IntroMonologue" type="Node" parent="." unique_id=1900000052]
+script = ExtResource("39_mono")
 
 [editable path="Mockups/Camera_bounds/undercroft_limit_zone"]
 [editable path="Mockups/Camera_bounds/undercroft_limit_zone2"]
