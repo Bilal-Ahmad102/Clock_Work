@@ -141,6 +141,7 @@ func regen_mana(delta: float) -> void:
 		return
 	mana = min(MAX_MANA, mana + MANA_REGEN_RATE * delta)
 	mana_changed.emit(mana, MAX_MANA)
+
 # ── Health helpers ────────────────────────────────────────────
 func take_damage(amount: float) -> void:
 	if is_invincible:

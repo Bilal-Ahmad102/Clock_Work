@@ -1540,7 +1540,6 @@ offset_bottom = -40.0
 grow_horizontal = 2
 
 [node name="UI" parent="." unique_id=2036775235 instance=ExtResource("265_yyexa")]
-visible = false
 
 [node name="Control" type="Control" parent="UI" unique_id=1632681897]
 visible = false

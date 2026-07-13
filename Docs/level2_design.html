@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ClockWork — Level 2 Design: The Captain's Stage</title>
+<style>
+  body { font-family: "DejaVu Sans", sans-serif; font-size: 10.5pt; color: #1a1a1a; }
+  h1 { font-size: 21pt; color: #7a5a1e; }
+  h2 { font-size: 14pt; color: #7a5a1e; border-bottom: 1px solid #c99a4a; margin-top: 1.6em; padding-bottom: 3px; }
+  h3 { font-size: 11.5pt; color: #333; margin-top: 1.2em; }
+  .meta { color: #666; font-size: 9pt; }
+  table { border-collapse: collapse; width: 100%; margin: 0.6em 0; }
+  th, td { border: 1px solid #999; padding: 4px 8px; text-align: left; font-size: 9.5pt; vertical-align: top; }
+  th { background: #efe3c8; }
+  code { font-family: "DejaVu Sans Mono", monospace; font-size: 9pt; background: #f0ece2; padding: 0 3px; }
+  .beat { background: #f7f3ea; border-left: 4px solid #c99a4a; padding: 6px 10px; margin: 8px 0; }
+  .warn { background: #fbeaea; border-left: 4px solid #b04040; padding: 6px 10px; margin: 8px 0; }
+  ul { margin: 0.3em 0 0.8em 1.2em; padding: 0; }
+  li { margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<p>&#160;</p>
+<p style="font-size: 22pt; font-weight: bold; color: #7a5a1e; margin-bottom: 2px;">ClockWork — Level 2: The Captain's Stage</p>
+<p class="meta">Design document v1 (draft for review) — 2026-07-12 — follows the Intro Level (Undercroft combat tutorial). Purpose of the level: <b>introduce the Audience and the Captain as living systems the player can feel.</b></p>
+
+<h2>1. Design goals</h2>
+<ul>
+  <li><b>G1 — The enemy does not die, it recasts.</b> Player must experience at least one on-stage form collapse followed by a recast into a fresh vessel, and understand the difference from a normal kill.</li>
+  <li><b>G2 — Someone is watching.</b> The Audience is introduced visually (the Pit) and mechanically: player's accumulated style measurably changes the Captain's behavior mid-level.</li>
+  <li><b>G3 — Style has consequences.</b> Brutal/repetitive play makes the vessel faster and more erratic (volatility up); varied/restrained play keeps favor alive. The level teaches this with one controlled contrast, not a lecture.</li>
+  <li><b>G4 — Continuity of tone.</b> Prison-theater vocabulary continues from the intro level (Yard, Prompter's Cell, Fly Loft): this level is the stage house itself.</li>
+</ul>
+<p><b>Non-goals:</b> no magic (still sealed), no true_death ending in normal play (the level ends before recasts run out — true_death is reserved for a later level), no meta-progression UI beyond the two new bars.</p>
+
+<h2>2. Narrative framing</h2>
+<p>Marla leaves the Undercroft through the eastern exit and enters the backstage of the theater proper. The play never stops here: <i>The Captain</i> is a role, not a person — bodies are conscripted into it and the Audience insists the show continues. Marla interrupts a performance. The role binds to a vessel, she cuts it down, and the house does not let the curtain fall: the role limps into the next understudy in front of her. The level ends with the scarred Captain retreating deeper into the theater — favor bleeding, poise cracked — setting up the true confrontation later.</p>
+
+<h2>3. Level structure — five beats</h2>
+
+<div class="beat"><b>Beat 1 — STAGE DOOR (arrival, ~60s).</b> Quiet corridor + prop storage. Movement only. Dialogue Manager monologue #1 (Marla, portrait balloon): she hears applause through the walls. One poster prop: "THE CAPTAIN — EVERY NIGHT, FOREVER." Checkpoint 1.</div>
+
+<div class="beat"><b>Beat 2 — THE WINGS (foreshadow, ~90s).</b> Vertical backstage: ropes, counterweights, reuse of grab-edge climbing. Through gaps in the curtain the player sees the Pit — rows of silhouette props (the Audience) facing an empty stage. Balloon line from offstage: the Prompter feeding lines. Optional secret: catwalk above with a cog + shrine (mirrors intro-level Fly Loft pattern). Checkpoint 2.</div>
+
+<div class="beat"><b>Beat 3 — FIRST BLOOD (first fight, ~2 min).</b> Marla steps onto the stage; camera limit region locks to the proscenium (reuse <code>camera_limit_zone</code>). <code>Captain.bind_role(&amp;"the_captain", [vessel_1, vessel_2, vessel_3])</code> fires; Vessel 1 (thread_puppet) walks on. Favor + Poise bars fade in (new UI). Fight to Form 0 → <b>form collapse on stage</b>: vessel drops, Audience noise swells, scar applies (poise −15, integrity −10, volatility +20), and the role recasts into Vessel 2 which stands up from the front row of the Pit. Monologue #2: Marla realizes killing the body did nothing. Checkpoint 3 (mid-fight checkpoint restores at stage edge, Captain metrics persist — the Audience remembers).</div>
+
+<div class="beat"><b>Beat 4 — THE TURN (taught contrast, ~2 min).</b> Vessel 2 fight. Volatility from the Beat-3 scar is now visible: +10% move speed, tighter/jittery attack pacing, higher heavy-attack chance (numbers in §6). Audience pressure loop is live: if the player spams one attack, favor visibly drains and the Prompter heckles ("They've seen this trick"); if the player varies verbs or parries, a restraint line plays instead. One scripted parry prompt: successful parry triggers <code>Captain.damage_back_attacking_vessel()</code> — the crowd gasps. Fight ends at Form 0 → second scar → recast begins…</div>
+
+<div class="beat"><b>Beat 5 — CURTAIN (exit, ~45s).</b> …but this time the recast is <i>staged</i>: Vessel 3 catches the role, staggers, and withdraws through the trapdoor rather than fighting (favor too low to risk a third collapse tonight). Monologue #3: the Audience turns, as one, to look at Marla. Exit door to Level 3 unlocks. End-of-level state: <code>recast_count = 2</code>, volatility 40, scarred poise/integrity carried forward by the Audience's memory design.</div>
+
+<h2>4. Layout blockout (mockup polygons, intro-level conventions)</h2>
+<p><img src="level2_overview.png" width="640" height="279"></p>
+<p>Total footprint ≈ x 0–4400, ground y = 0 baseline, 16px tiles. Same node pattern as intro: <code>Mockups/</code> StaticBody2D + Polygon2D blockout, labels in half-transparent 16pt.</p>
+<table>
+  <tr><th>Zone</th><th>X range</th><th>Y notes</th><th>Contents</th></tr>
+  <tr><td>STAGE DOOR</td><td>0–800</td><td>flat, ceiling −220</td><td>spawn x 80, poster prop, checkpoint_1 @ 420, monologue #1 trigger @ 200</td></tr>
+  <tr><td>THE WINGS</td><td>800–1900</td><td>vertical shaft up to −620</td><td>3 grab edges (+130px spacing), curtain-gap view windows @ y −180/−400, checkpoint_2 @ 1780</td></tr>
+  <tr><td>CATWALK (secret)</td><td>1100–1700 @ y −680</td><td>above Wings</td><td>cog + shrine nook, <code>secret_foliage</code> overlay, drop-down return</td></tr>
+  <tr><td>THE STAGE (arena)</td><td>1900–2900</td><td>flat, proscenium walls</td><td>camera limit region 1900–2900 / −340–40; camera focus marker center-stage; both boss fights here</td></tr>
+  <tr><td>THE PIT</td><td>2900–3600</td><td>floor +120 (below stage lip)</td><td>audience silhouette props (Polygon2D rows), Vessel 2 spawn point front row, kill-nothing (safe zone)</td></tr>
+  <tr><td>TRAPDOOR / EXIT</td><td>3600–4400</td><td>descending</td><td>Vessel 3 retreat path, exit door (locked until Beat 5), checkpoint_4</td></tr>
+</table>
+
+<h2>5. Systems integration — wiring checklist</h2>
+<p>These are the code tasks this level forces. Items marked <b>GAP</b> are confirmed against current source.</p>
+<table>
+  <tr><th>#</th><th>Task</th><th>Where</th><th>Status</th></tr>
+  <tr><td>1</td><td><b>GAP:</b> Audience pressure tick is commented out (<code>_process</code> in <code>Audience.gd:36-40</code>). Re-enable it (or drive from a level-scoped timer so the intro level stays Audience-free).</td><td><code>Scripts/Globals/Audience.gd</code></td><td>required</td></tr>
+  <tr><td>2</td><td><b>GAP:</b> <code>_apply_captain_behaviour()</code> runs once in <code>_ready</code> only (<code>enemy.gd:30</code>). Connect it to <code>Captain.recast_applied</code> + <code>Captain.metrics_changed</code> so scars/pressure change behavior live (G2/G3 depend on this).</td><td><code>Enemy/Scripts/enemy.gd</code></td><td>required</td></tr>
+  <tr><td>3</td><td><b>GAP:</b> nothing calls <code>Captain.bind_role()</code> yet. Level script binds the role on stage entry with the 3-vessel list.</td><td>new <code>Scripts/captains_stage.gd</code></td><td>required</td></tr>
+  <tr><td>4</td><td><b>GAP:</b> <code>Captain.attaking_vessel</code> is never assigned. Enemy sets it on entering its attack state; parry riposte (<code>damage_back_attacking_vessel</code>) is dead code until then.</td><td><code>enemy.gd</code> attack state</td><td>required</td></tr>
+  <tr><td>5</td><td>Favor + Poise player-facing bars (replace debug label). Reuse UI juice pattern from <code>Player/Scripts/UI/</code>; listen to <code>Captain.metrics_changed</code>.</td><td>new UI scene</td><td>required</td></tr>
+  <tr><td>6</td><td>Recast presentation: on <code>recast_applied</code>, current vessel plays collapse anim, next vessel spawns at Pit marker, camera <code>focus_on()</code> the handoff (~1.5s), input locked via tree pause + balloon-style ALWAYS node.</td><td>level script + enemy scene</td><td>required</td></tr>
+  <tr><td>7</td><td>Vessel 3 scripted retreat (Beat 5): on second <code>recast_applied</code>, dispatch a <code>retreat</code> state instead of combat; unlock exit.</td><td>enemy state machine</td><td>required</td></tr>
+  <tr><td>8</td><td>Hitbox behavior recording already works (combo suffix fix, repetition once per chain). Verify thread_puppet is NOT in <code>TrainingDummy</code> group so recording is active here.</td><td><code>Player/Scripts/hitbox.gd</code></td><td>verify</td></tr>
+  <tr><td>9</td><td>Prompter heckle lines: Dialogue Manager triggered from favor thresholds (75 / 50 / 25). Uses portrait balloon; Prompter portrait TBD.</td><td><code>Dialogue/captains_stage.dialogue</code></td><td>required</td></tr>
+  <tr><td>10</td><td><code>MAX_RECASTS</code> is 5 but this level's vessel list has 3; invalidation would fire at recast 3 (<code>no_viable_vessels</code>). Beat 5 retreat happens at recast 2, so no conflict — but assert it in the level script.</td><td><code>Captain.gd</code> / level script</td><td>guard</td></tr>
+</table>
+
+<h2>6. Tuning targets</h2>
+<table>
+  <tr><th>Value</th><th>Source</th><th>Level 2 target</th><th>Why</th></tr>
+  <tr><td>Vessel Form</td><td><code>Captain.form</code> = 100</td><td>keep 100</td><td>≈ 3 full light chains (33) or mix with heavies (32) — 25–35s per vessel at tutorial skill</td></tr>
+  <tr><td>Scar per collapse</td><td>poise −15 / integrity −10 / volatility +20</td><td>keep</td><td>two scars → volatility 40 → +20% speed, −12% cooldown, jitter 0.28, heavy 56% (per <code>_apply_captain_behaviour</code> formulas)</td></tr>
+  <tr><td>Pressure interval</td><td><code>PRESSURE_INTERVAL</code> 1.0s</td><td>keep</td><td>with rates 0.02–0.05 the drift is slow; visible over a 2-min fight without dominating</td></tr>
+  <tr><td>Repetition → favor</td><td>−0.05 × repetition /s</td><td>keep, verify feel</td><td>spamming one verb should cost ~10–15 favor over Beat 4 — noticeable on the new bar</td></tr>
+  <tr><td>Enemy damage</td><td>light 12 / heavy 28</td><td>light 10 / heavy 22</td><td>first real enemy; player HP economy still tutorial-adjacent</td></tr>
+  <tr><td>Recast handoff</td><td>—</td><td>1.5s camera focus, 0.5s vulnerability window on new vessel</td><td>reward aggression on the handoff without free damage</td></tr>
+</table>
+
+<h2>7. Dialogue beats (placeholders)</h2>
+<table>
+  <tr><th>ID</th><th>Trigger</th><th>Speaker</th><th>Placeholder line</th></tr>
+  <tr><td>M1</td><td>Beat 1 entry</td><td>Marla</td><td>"Applause. Through three feet of stone. Who claps in a prison?"</td></tr>
+  <tr><td>P1</td><td>Beat 2 curtain gap</td><td>Prompter (offstage)</td><td>"Line! …He never needs the line. He never leaves the stage."</td></tr>
+  <tr><td>M2</td><td>first recast</td><td>Marla</td><td>"I put him down. The role just… picked up someone else."</td></tr>
+  <tr><td>P2</td><td>favor &lt; 50</td><td>Prompter</td><td>"They've seen this trick, girl. Show them another."</td></tr>
+  <tr><td>M3</td><td>Beat 5 exit</td><td>Marla</td><td>"Every seat turned to me. Intermission's over."</td></tr>
+</table>
+
+<h2>8. Open questions (for review)</h2>
+<ul>
+  <li>Should Audience patterns (brutality/precision/…) persist from the intro level's training dummies? Current rule: intro is Audience-free — proposal: Level 2 starts the memory at zero, first "real" performance.</li>
+  <li>Favor/Poise bars always visible during fights, or only when the value moves (juice pulse like the player HP bars)?</li>
+  <li>Vessel visual differentiation: palette swap of thread_puppet per vessel, or 3 distinct silhouettes? Blockout can ship with palette swap.</li>
+  <li>Does checkpoint death during Beat 3/4 reset Captain metrics? Proposal: no — Audience remembers across Marla's deaths too (reinforces the fiction, softens difficulty via scars persisting).</li>
+  <li>Pit safe zone: allow the player to walk among the audience silhouettes, or fence the stage? Proposal: allow it once, silhouettes never react — unsettling beat, zero cost.</li>
+</ul>
+
+<div class="warn"><b>Review flow:</b> this v1 goes to ChatGPT + Grok review before any implementation. Blockout only after review sign-off, same as the intro level process.</div>
+
+</body>
+</html>

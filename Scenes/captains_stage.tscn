@@ -1,0 +1,417 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" uid="uid://ci3xy2jkuj5jo" path="res://Player/Scenes/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://clsp070pec5kd" path="res://Scenes/checkpoint.tscn" id="2_cp"]
+[ext_resource type="PackedScene" uid="uid://ig4si75g5qw5" path="res://Scenes/camera_limit_zone.tscn" id="3_camzone"]
+[ext_resource type="Script" uid="uid://c3b4x80s4osvj" path="res://Scripts/secret_foliage.gd" id="4_sfol"]
+[ext_resource type="Script" uid="uid://mbqlefyc5toj" path="res://Scripts/shrine.gd" id="5_shrine"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edge"]
+size = Vector2(75, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp"]
+size = Vector2(40, 100)
+
+[node name="CaptainsStage" type="Node2D"]
+
+[node name="Title" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -870.0
+offset_right = 600.0
+offset_bottom = -830.0
+theme_override_colors/font_color = Color(0.788, 0.608, 0.29, 1)
+theme_override_font_sizes/font_size = 24
+text = "LEVEL 2 — THE CAPTAIN'S STAGE (blockout)"
+
+[node name="Mockups" type="Node2D" parent="."]
+
+[node name="backdrop" type="Polygon2D" parent="Mockups"]
+z_index = -10
+color = Color(0.04, 0.05, 0.08, 1)
+polygon = PackedVector2Array(-200, -900, 4600, -900, 4600, 520, -200, 520)
+
+[node name="Blockout" type="Node2D" parent="Mockups"]
+
+[node name="ground" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/ground"]
+polygon = PackedVector2Array(0, 0, 2900, 0, 2900, 120, 3900, 120, 3900, 240, 4400, 240, 4400, 400, 0, 400)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/ground"]
+color = Color(0.275, 0.314, 0.29, 1)
+polygon = PackedVector2Array(0, 0, 2900, 0, 2900, 120, 3900, 120, 3900, 240, 4400, 240, 4400, 400, 0, 400)
+
+[node name="west_wall" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/west_wall"]
+polygon = PackedVector2Array(-40, -620, 0, -620, 0, 0, -40, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/west_wall"]
+color = Color(0.275, 0.314, 0.29, 1)
+polygon = PackedVector2Array(-40, -620, 0, -620, 0, 0, -40, 0)
+
+[node name="stage_door_ceiling" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/stage_door_ceiling"]
+polygon = PackedVector2Array(0, -260, 800, -260, 800, -220, 0, -220)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/stage_door_ceiling"]
+color = Color(0.275, 0.314, 0.29, 1)
+polygon = PackedVector2Array(0, -260, 800, -260, 800, -220, 0, -220)
+
+[node name="wings_wall" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/wings_wall"]
+polygon = PackedVector2Array(800, -620, 840, -620, 840, -220, 800, -220)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/wings_wall"]
+color = Color(0.275, 0.314, 0.29, 1)
+polygon = PackedVector2Array(800, -620, 840, -620, 840, -220, 800, -220)
+
+[node name="roof" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/roof"]
+polygon = PackedVector2Array(800, -800, 2920, -800, 2920, -780, 800, -780)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/roof"]
+color = Color(0.275, 0.314, 0.29, 1)
+polygon = PackedVector2Array(800, -800, 2920, -800, 2920, -780, 800, -780)
+
+[node name="left_proscenium" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/left_proscenium"]
+polygon = PackedVector2Array(1880, -780, 1920, -780, 1920, -200, 1880, -200)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/left_proscenium"]
+color = Color(0.353, 0.4, 0.373, 1)
+polygon = PackedVector2Array(1880, -780, 1920, -780, 1920, -200, 1880, -200)
+
+[node name="fly_cap" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/fly_cap"]
+polygon = PackedVector2Array(1900, -640, 2900, -640, 2900, -620, 1900, -620)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/fly_cap"]
+color = Color(0.353, 0.4, 0.373, 1)
+polygon = PackedVector2Array(1900, -640, 2900, -640, 2900, -620, 1900, -620)
+
+[node name="right_proscenium" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/right_proscenium"]
+polygon = PackedVector2Array(2880, -620, 2920, -620, 2920, -200, 2880, -200)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/right_proscenium"]
+color = Color(0.353, 0.4, 0.373, 1)
+polygon = PackedVector2Array(2880, -620, 2920, -620, 2920, -200, 2880, -200)
+
+[node name="east_wall" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/east_wall"]
+polygon = PackedVector2Array(4400, -400, 4440, -400, 4440, 240, 4400, 240)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/east_wall"]
+color = Color(0.275, 0.314, 0.29, 1)
+polygon = PackedVector2Array(4400, -400, 4440, -400, 4440, 240, 4400, 240)
+
+[node name="w_plat_1" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/w_plat_1"]
+polygon = PackedVector2Array(960, -180, 1120, -180, 1120, -164, 960, -164)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/w_plat_1"]
+color = Color(0.353, 0.4, 0.373, 1)
+polygon = PackedVector2Array(960, -180, 1120, -180, 1120, -164, 960, -164)
+
+[node name="w_plat_2" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/w_plat_2"]
+polygon = PackedVector2Array(1340, -340, 1500, -340, 1500, -324, 1340, -324)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/w_plat_2"]
+color = Color(0.353, 0.4, 0.373, 1)
+polygon = PackedVector2Array(1340, -340, 1500, -340, 1500, -324, 1340, -324)
+
+[node name="w_plat_3" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/w_plat_3"]
+polygon = PackedVector2Array(960, -500, 1120, -500, 1120, -484, 960, -484)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/w_plat_3"]
+color = Color(0.353, 0.4, 0.373, 1)
+polygon = PackedVector2Array(960, -500, 1120, -500, 1120, -484, 960, -484)
+
+[node name="catwalk" type="StaticBody2D" parent="Mockups/Blockout"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/Blockout/catwalk"]
+polygon = PackedVector2Array(1100, -680, 1700, -680, 1700, -664, 1100, -664)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/Blockout/catwalk"]
+color = Color(0.353, 0.4, 0.373, 1)
+polygon = PackedVector2Array(1100, -680, 1700, -680, 1700, -664, 1100, -664)
+
+[node name="curtain_window_low" type="Polygon2D" parent="Mockups/Blockout"]
+color = Color(0.788, 0.608, 0.29, 0.5)
+polygon = PackedVector2Array(1820, -240, 1860, -240, 1860, -180, 1820, -180)
+
+[node name="curtain_window_high" type="Polygon2D" parent="Mockups/Blockout"]
+color = Color(0.788, 0.608, 0.29, 0.5)
+polygon = PackedVector2Array(1820, -460, 1860, -460, 1860, -400, 1820, -400)
+
+[node name="exit_door" type="Polygon2D" parent="Mockups/Blockout"]
+color = Color(0.55, 0.25, 0.25, 1)
+polygon = PackedVector2Array(4340, 100, 4400, 100, 4400, 240, 4340, 240)
+
+[node name="trapdoor" type="Polygon2D" parent="Mockups/Blockout"]
+color = Color(0.788, 0.608, 0.29, 1)
+polygon = PackedVector2Array(3950, 225, 4080, 225, 4080, 240, 3950, 240)
+
+[node name="poster" type="Polygon2D" parent="Mockups/Blockout"]
+color = Color(0.788, 0.608, 0.29, 0.6)
+polygon = PackedVector2Array(280, -170, 370, -170, 370, -50, 280, -50)
+
+[node name="grabable_edges" type="Node2D" parent="Mockups"]
+
+[node name="edge_plat_1" type="StaticBody2D" parent="Mockups/grabable_edges" groups=["Grabable_Edges"]]
+position = Vector2(1114, -180)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/grabable_edges/edge_plat_1"]
+position = Vector2(3, -36.5)
+shape = SubResource("RectangleShape2D_edge")
+
+[node name="player_pos_l" type="Marker2D" parent="Mockups/grabable_edges/edge_plat_1"]
+position = Vector2(-45, -37)
+
+[node name="player_pos_r" type="Marker2D" parent="Mockups/grabable_edges/edge_plat_1"]
+position = Vector2(45, -37)
+
+[node name="edge_plat_2" type="StaticBody2D" parent="Mockups/grabable_edges" groups=["Grabable_Edges"]]
+position = Vector2(1346, -340)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/grabable_edges/edge_plat_2"]
+position = Vector2(3, -36.5)
+shape = SubResource("RectangleShape2D_edge")
+
+[node name="player_pos_l" type="Marker2D" parent="Mockups/grabable_edges/edge_plat_2"]
+position = Vector2(-45, -37)
+
+[node name="player_pos_r" type="Marker2D" parent="Mockups/grabable_edges/edge_plat_2"]
+position = Vector2(45, -37)
+
+[node name="edge_plat_3" type="StaticBody2D" parent="Mockups/grabable_edges" groups=["Grabable_Edges"]]
+position = Vector2(1114, -500)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/grabable_edges/edge_plat_3"]
+position = Vector2(3, -36.5)
+shape = SubResource("RectangleShape2D_edge")
+
+[node name="player_pos_l" type="Marker2D" parent="Mockups/grabable_edges/edge_plat_3"]
+position = Vector2(-45, -37)
+
+[node name="player_pos_r" type="Marker2D" parent="Mockups/grabable_edges/edge_plat_3"]
+position = Vector2(45, -37)
+
+[node name="edge_catwalk" type="StaticBody2D" parent="Mockups/grabable_edges" groups=["Grabable_Edges"]]
+position = Vector2(1106, -680)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/grabable_edges/edge_catwalk"]
+position = Vector2(3, -36.5)
+shape = SubResource("RectangleShape2D_edge")
+
+[node name="player_pos_l" type="Marker2D" parent="Mockups/grabable_edges/edge_catwalk"]
+position = Vector2(-45, -37)
+
+[node name="player_pos_r" type="Marker2D" parent="Mockups/grabable_edges/edge_catwalk"]
+position = Vector2(45, -37)
+
+[node name="secret_catwalk" type="Area2D" parent="Mockups"]
+script = ExtResource("4_sfol")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/secret_catwalk"]
+polygon = PackedVector2Array(1080, -780, 1720, -780, 1720, -664, 1080, -664)
+
+[node name="cog" type="Polygon2D" parent="Mockups/secret_catwalk"]
+color = Color(0.788, 0.608, 0.29, 1)
+polygon = PackedVector2Array(1300, -734, 1314, -720, 1300, -706, 1286, -720)
+
+[node name="Overlay" type="Polygon2D" parent="Mockups/secret_catwalk"]
+z_index = 30
+color = Color(0.1, 0.12, 0.16, 1)
+polygon = PackedVector2Array(1080, -780, 1720, -780, 1720, -664, 1080, -664)
+
+[node name="catwalk_shrine" type="Area2D" parent="Mockups"]
+script = ExtResource("5_shrine")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mockups/catwalk_shrine"]
+polygon = PackedVector2Array(1560, -744, 1640, -744, 1640, -664, 1560, -664)
+
+[node name="Polygon2D" type="Polygon2D" parent="Mockups/catwalk_shrine"]
+color = Color(0.18, 0.43, 0.55, 1)
+polygon = PackedVector2Array(1585, -724, 1615, -724, 1615, -664, 1585, -664)
+
+[node name="checkpoints" type="Node2D" parent="Mockups"]
+
+[node name="checkpoint_1" parent="Mockups/checkpoints" node_paths=PackedStringArray("area") instance=ExtResource("2_cp")]
+position = Vector2(420, -30)
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Mockups/checkpoints/checkpoint_1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/checkpoints/checkpoint_1/Area2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_cp")
+
+[node name="checkpoint_2" parent="Mockups/checkpoints" node_paths=PackedStringArray("area") instance=ExtResource("2_cp")]
+position = Vector2(1780, -30)
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Mockups/checkpoints/checkpoint_2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/checkpoints/checkpoint_2/Area2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_cp")
+
+[node name="checkpoint_3" parent="Mockups/checkpoints" node_paths=PackedStringArray("area") instance=ExtResource("2_cp")]
+position = Vector2(1960, -30)
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Mockups/checkpoints/checkpoint_3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/checkpoints/checkpoint_3/Area2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_cp")
+
+[node name="checkpoint_4" parent="Mockups/checkpoints" node_paths=PackedStringArray("area") instance=ExtResource("2_cp")]
+position = Vector2(3680, 90)
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Mockups/checkpoints/checkpoint_4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mockups/checkpoints/checkpoint_4/Area2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_cp")
+
+[node name="Camera_bounds" type="Node2D" parent="Mockups"]
+
+[node name="stage_limit_zone" parent="Mockups/Camera_bounds" instance=ExtResource("3_camzone")]
+
+[node name="CollisionPolygon2D" parent="Mockups/Camera_bounds/stage_limit_zone" index="0"]
+polygon = PackedVector2Array(1920, -200, 2880, -200, 2880, 0, 1920, 0)
+
+[node name="camera_bounds" parent="Mockups/Camera_bounds/stage_limit_zone" index="1"]
+polygon = PackedVector2Array(1900, -360, 2900, -360, 2900, 140, 1900, 140)
+
+[node name="audience" type="Node2D" parent="Mockups"]
+
+[node name="silhouette_1" type="Polygon2D" parent="Mockups/audience"]
+color = Color(0.16, 0.19, 0.24, 1)
+polygon = PackedVector2Array(2944, 120, 2944, 86, 2960, 70, 2976, 86, 2976, 120)
+
+[node name="silhouette_2" type="Polygon2D" parent="Mockups/audience"]
+color = Color(0.16, 0.19, 0.24, 1)
+polygon = PackedVector2Array(3044, 120, 3044, 86, 3060, 70, 3076, 86, 3076, 120)
+
+[node name="silhouette_3" type="Polygon2D" parent="Mockups/audience"]
+color = Color(0.16, 0.19, 0.24, 1)
+polygon = PackedVector2Array(3144, 120, 3144, 86, 3160, 70, 3176, 86, 3176, 120)
+
+[node name="silhouette_4" type="Polygon2D" parent="Mockups/audience"]
+color = Color(0.16, 0.19, 0.24, 1)
+polygon = PackedVector2Array(3244, 120, 3244, 86, 3260, 70, 3276, 86, 3276, 120)
+
+[node name="silhouette_5" type="Polygon2D" parent="Mockups/audience"]
+color = Color(0.16, 0.19, 0.24, 1)
+polygon = PackedVector2Array(3344, 120, 3344, 86, 3360, 70, 3376, 86, 3376, 120)
+
+[node name="silhouette_6" type="Polygon2D" parent="Mockups/audience"]
+color = Color(0.16, 0.19, 0.24, 1)
+polygon = PackedVector2Array(3444, 120, 3444, 86, 3460, 70, 3476, 86, 3476, 120)
+
+[node name="labels" type="Node2D" parent="Mockups"]
+
+[node name="lbl_stage_door" type="Label" parent="Mockups/labels"]
+offset_left = 260.0
+offset_top = -320.0
+offset_right = 460.0
+offset_bottom = -290.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 16
+text = "STAGE DOOR"
+
+[node name="lbl_wings" type="Label" parent="Mockups/labels"]
+offset_left = 1150.0
+offset_top = -120.0
+offset_right = 1350.0
+offset_bottom = -90.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 16
+text = "THE WINGS"
+
+[node name="lbl_catwalk" type="Label" parent="Mockups/labels"]
+offset_left = 1350.0
+offset_top = -770.0
+offset_right = 1550.0
+offset_bottom = -740.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 16
+text = "THE CATWALK"
+
+[node name="lbl_stage" type="Label" parent="Mockups/labels"]
+offset_left = 2300.0
+offset_top = -120.0
+offset_right = 2500.0
+offset_bottom = -90.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 16
+text = "THE STAGE"
+
+[node name="lbl_pit" type="Label" parent="Mockups/labels"]
+offset_left = 3150.0
+offset_top = 30.0
+offset_right = 3350.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 16
+text = "THE PIT"
+
+[node name="lbl_trapdoor" type="Label" parent="Mockups/labels"]
+offset_left = 3900.0
+offset_top = 170.0
+offset_right = 4150.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 16
+text = "TRAPDOOR / EXIT ->"
+
+[node name="lbl_poster" type="Label" parent="Mockups/labels"]
+offset_left = 240.0
+offset_top = -200.0
+offset_right = 440.0
+offset_bottom = -170.0
+theme_override_colors/font_color = Color(0.788, 0.608, 0.29, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "THE CAPTAIN — EVERY NIGHT, FOREVER"
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="v1_spawn" type="Marker2D" parent="Actors"]
+position = Vector2(2400, -20)
+
+[node name="v2_spawn" type="Marker2D" parent="Actors"]
+position = Vector2(3000, 90)
+
+[node name="v3_spawn" type="Marker2D" parent="Actors"]
+position = Vector2(3760, 90)
+
+[node name="Player" parent="Actors" instance=ExtResource("1_player")]
+position = Vector2(80, -40)
+cam_offset = Vector2(0, -90)
+cam_deadzone = Vector2(50, 50)
+cam_limit_left = -60
+cam_limit_right = 4460
+cam_limit_bottom = 460
+
+[editable path="Mockups/Camera_bounds/stage_limit_zone"]

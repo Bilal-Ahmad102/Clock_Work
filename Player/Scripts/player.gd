@@ -170,6 +170,10 @@ func take_damage(amount: float):
 		_:
 			state_machine.dispatch(&"hurt")
 			PlayerData.take_damage(amount)
+
+func take_health():
+	PlayerData.health -= 10
+
 func give_parry_window():
 	if state_machine.get_active_state() == state_machine.parry:
 		if %parry.do_parry():
